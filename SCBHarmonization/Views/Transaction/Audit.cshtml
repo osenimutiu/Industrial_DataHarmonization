@@ -1,0 +1,232 @@
+﻿@model PagedList.IPagedList<SCBHarmonization.ViewModels.AuditViewModel>
+@using PagedList.Mvc;
+
+@{
+    ViewBag.Title = "Audit";
+}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css" />
+<link rel="stylesheet" href="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.10.4/themes/hot-sneaks/jquery-ui.css" />
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script type="text/javascript">
+    //(function ($) {
+
+    //})(jQuery);
+    $(function () {
+        //$("#txtStartDate,#txtendDate").datepicker(
+        //    {
+        //        //dateFormat: 'mm-dd-yy',
+        //        dateFormat: 'dd-mm-yy',
+        //        //dateFormat: 'yy-mm-dd',
+        //        changeMonth: true,
+        //        changeYear: true
+        //    });
+
+        //$("#txtUsername").keyup(function () {
+        //    DisableDate();
+        //});
+
+        //$("#txtStartDate,#txtendDate").change(function () {
+        //    DisableText();
+        //});
+    });
+
+    function DisableDate() {
+        $("#txtStartDate").val('');
+        $("#txtendDate").val('');
+        var len = $("#txtUsername").val().length;
+        if (len > 0) {
+            $("#txtStartDate").prop("disabled", true);
+            $("#txtendDate").prop("disabled", true);
+        } else {
+            $("#txtStartDate").prop("disabled", false);
+        $("#txtendDate").prop("disabled", false); 
+        }
+        //alert(len);
+        
+    }
+
+
+    function DisableText() {
+        //$("#txtUsername").prop("disabled", true);
+        $("#txtUsername").val('');
+        $("#txtUsername").prop("disabled", true);
+    }
+
+
+
+
+    function DisableSent() {
+        //$('table tr').each(function () {
+        //    if ($(this).find('.total').html() == 0.00) {
+        //        $(this).find('.settle-button').prop('disabled', true);
+        //    }
+        //    else {
+        //        $(this).find('.settle-button').prop('disabled', false);
+        //    }
+        //});
+        debugger;
+        $('#example1').find("tr:gt(0)").each(function () {
+            //if ($(this).find('.status').html() == 'Pending') {
+            //    $(this).find('.btnSend').prop('disabled', true);
+            //}
+            //else {
+            //    $(this).find('.btnSend').prop('disabled', false);
+            //}
+
+            var pStaus = $(this).find("td:eq(1)").text();
+            //alert(pStaus);
+            //var pStaus = $(this).find("td:eq(1)").text();
+            //if(pStaus == )
+            //alert(pStaus);
+            //var pStaus = $(this).find("td:eq(1)");
+            //if ($(this).find("td:eq(1)").text() == 'Pending') {
+            //    $(this).find("td:eq(0)").prop('disabled', true);
+            //}
+
+            //if (pStaus.text('Pending')) {
+            //    //alert('Hello');
+            //} else {
+            //    alert('Hi');
+            //}
+            //console.log(pStaus);
+
+        });
+
+    }
+    function refresh() {
+        window.location.href = '/Transaction/Audit/'
+    }
+
+
+</script>
+
+
+
+@*<select id="txtTextArea" class="form-control" style="width: 220px;">
+    </select>*@
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-6">
+                <p style="font-size: 20px; font-weight:bold;">Audit Log <span id="txtTransactionDate" style="font-size: 30px; font-weight:bold; color: #32a852"></span></p>
+            </div>
+
+            @*<div class="col-md-3">
+
+        </div>*@
+
+            @*<div class="col-md-6">
+            <p>
+                @using (@Html.BeginForm("Audit", "Transaction", FormMethod.Get, new { @class = "form-horizontal", role = "form" }))
+                {
+                    @Html.TextBox("search", "", new { id = "txtUsername", placeholder = "Username", })
+                    @Html.TextBox("startDate", "", new { id = "txtStartDate", @placeholder = "Start Date", @style = "margin-left: 7px;" })
+                    @Html.TextBox("endDate", "", new { id = "txtendDate", @placeholder = "End Date", @style = "margin-left: 7px;" })
+                    <input class="btn btn-success" type="submit" value="search" />
+                    <a class="btn btn-danger" id="btnrefresh" onclick="refresh()">Refresh</a>
+                }
+            </p>
+        </div>*@
+            <div class="col-md-6">
+                <p>
+                    @using (@Html.BeginForm("Audit", "Transaction", FormMethod.Get, new { @class = "form-horizontal", role = "form" }))
+                    {
+                     <span style="position: relative; left:100px; font-size: 20px;">Username:</span> @Html.TextBox("search", "", new { id = "txtUsername", @style = "position: relative; left:100px;" })
+                    <span style="position: relative; left:100px; font-size: 20px;">StartDate:</span>@Html.TextBox("startDate", "", new { id = "txtStartDate", @placeholder = "Start Date", @type = "date", @style= "margin-left: 7px;position: relative; left:100px;" })
+                    <span style="position: relative; left:100px; font-size: 20px;">EndDate:</span>@Html.TextBox("endDate", "", new { id = "txtendDate", @placeholder = "End Date", @style= "margin-left: 7px; position: relative; left:100px;", @type = "date" })
+                    <input class="btn btn-success" type="submit" value="search" style="position: relative; left:100px;" />
+                        <a class="btn btn-danger" id="btnrefresh" onclick="refresh()" style="position: relative; left:100px;">Refresh</a>
+                    }
+                </p>
+            </div>
+        </div>
+
+        <div class="col-12">
+            <div class="card">
+
+                @*<div class="card-header">
+                        <input type="hidden" id="txtTransId" class="form-control" />
+                        <input onclick="sendBulk()" type="submit" value="Send Bulk" class="btn btn-success" />
+                    </div>*@
+
+
+
+                <h4>@String.Format("{0:n0}", @ViewBag.RecordCount) of @String.Format("{0:n0}", @ViewBag.TotalCount) records</h4>
+                <div class="card-body" style="overflow:scroll; height:600px;">
+                    <table id="example1" class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th>UserName</th>
+                                @*<th>
+                                    IPADDRESS
+                                </th>*@
+                                <th>
+                                    URL
+                                </th>
+                                <th>
+                                    DEVICENAME
+                                </th>
+                                <th>
+                                    OSNAME
+                                </th>
+                                <th>
+                                    DATETIME
+                                </th>
+                                <th>
+                                    DETAIL
+                                </th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.UserName)
+                                    </td>
+                                    @*<td>
+                                        @Html.DisplayFor(modelItem => item.IPADDRESS)
+                                    </td>*@
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.URL)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.DEVICENAME)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.OSNAME)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.DATETIME)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.DETAIL)
+                                    </td>
+
+                                </tr>
+                            }
+                        </tbody>
+                        <tfoot>
+                        </tfoot>
+                    </table>
+                </div>
+                <br />
+                <div id='Paging' style="text-align:center">
+                    Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)
+                    of @Model.PageCount
+
+                    @Html.PagedListPager(Model, page => Url.Action("Audit", new { page }))
+                </div>
+            </div>
+
+
+        </div>
+    </div>

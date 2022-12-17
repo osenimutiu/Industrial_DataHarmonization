@@ -1,0 +1,148 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+
+@using (Html.BeginForm("SendTypedTransaction", "Home", FormMethod.Post))
+{
+    <br />
+    <br />
+    <h3>Enter Encrypted Response</h3>
+    SCBHarmonization.NibssModels.TransactionRequest transaction = new SCBHarmonization.NibssModels.TransactionRequest();
+
+
+    <label asp-for="@transaction.Amount">Amount</label>
+    <br />
+    <input type="text" asp-for="@transaction.Amount" name="Amount" />
+    <br />
+    <label asp-for="@transaction.Vat">Vat</label>
+    <br />
+    <input type="text" asp-for="@transaction.Vat" name="Vat" />
+    <br />
+    <label asp-for="@transaction.Fee">Fee</label>
+    <br />
+    <input type="text" asp-for="@transaction.Fee" name="Fee" />
+    <br />
+    <label asp-for="@transaction.TransID">TransId</label>
+    <br />
+    <input type="text" asp-for="@transaction.TransID" name="TransID" />
+    <br />
+    <label asp-for="@transaction.SrcAcctNo">SrcAcctNo</label>
+    <br />
+    <input type="text" asp-for="@transaction.SrcAcctNo" name="SrcAcctNo" />
+    <br />
+    <label asp-for="@transaction.SrcInstCode">SrcInstCode</label>
+    <br />
+    <input type="text" asp-for="@transaction.SrcInstCode" name="SrcInstCode" />
+    <br />
+    <label asp-for="@transaction.SrcInstBranchCode">SrcInstBranchCode</label>
+    <br />
+    <input type="text" asp-for="@transaction.SrcInstBranchCode" name="SrcInstBranchCode" />
+    <br />
+    <label asp-for="@transaction.SrcInstType">SrcInstType</label>
+    <br />
+    <input type="number" asp-for="@transaction.SrcInstType" name="SrcInstType" />
+    <br />
+    <label asp-for="@transaction.SrcInstUniqueID">SrcInstUniqueID</label>
+    <br />
+    <input type="text" asp-for="@transaction.SrcInstUniqueID" name="SrcInstUniqueID" />
+    <br />
+    <label asp-for="@transaction.DestAcctNo">DestAcctNo</label>
+    <br />
+    <input type="text" asp-for="@transaction.DestAcctNo" name="DestAcctNo" />
+    <br />
+    <label asp-for="@transaction.DestInstCode">DestInstCode</label>
+    <br />
+    <input type="text" asp-for="@transaction.DestInstCode" name="DestInstCode" />
+    <br />
+    <label asp-for="@transaction.DestInstBranchCode">DestInstBranchCode</label>
+    <br />
+    <input type="text" asp-for="@transaction.DestInstBranchCode" name="DestInstBranchCode" />
+    <br />
+    <label asp-for="@transaction.DestInstType">DestInstType</label>
+    <br />
+    <input type="number" asp-for="@transaction.DestInstType" name="DestInstType" />
+    <br />
+    <label asp-for="@transaction.DestInstUniqueID">DestInstUniqueID</label>
+    <br />
+    <input type="text" asp-for="@transaction.DestInstUniqueID" name="DestInstUniqueID" />
+    <br />
+    <label asp-for="@transaction.BankIncome">BankIncome</label>
+    <br />
+    <input type="text" asp-for="@transaction.BankIncome" name="BankIncome" />
+    <br />
+    <label asp-for="@transaction.TransDate">TransDate</label>
+    <br />
+    <input type="text" asp-for="@transaction.TransDate" name="TransDate" />
+    <br />
+    <label asp-for="@transaction.PsspParty">PsspParty</label>
+    <br />
+    <input type="text" asp-for="@transaction.PsspParty" name="PsspParty" />
+    <br />
+    <label asp-for="@transaction.AccountType">AccountType</label>
+    <br />
+    <input type="number" asp-for="@transaction.AccountType" name="AccountType" />
+    <br />
+    <label asp-for="@transaction.AccountClass">AccountClass</label>
+    <br />
+    <input type="number" asp-for="@transaction.AccountClass" name="AccountClass" />
+    <br />
+    <label asp-for="@transaction.AccountDesignation">AccountDesignation</label>
+    <br />
+    <input type="number" asp-for="@transaction.AccountDesignation" name="AccountDesignation" />
+    <br />
+    <label asp-for="@transaction.Currency">Currency</label>
+    <br />
+    <input type="number" asp-for="@transaction.Currency" name="Currency" />
+    <br />
+    <label asp-for="@transaction.PaymentType">PaymentType</label>
+    <br />
+    <input type="number" asp-for="@transaction.PaymentType" name="PaymentType" />
+    <br />
+    <label asp-for="@transaction.Channel">Channel</label>
+    <br />
+    <input type="number" asp-for="@transaction.Channel" name="Channel" />
+    <br />
+    <label asp-for="@transaction.TransactionTypeCode">TransactionTypeCode</label>
+    <br />
+    <input type="text" asp-for="@transaction.TransactionTypeCode" name="TransactionTypeCode" />
+    <br />
+    <label asp-for="@transaction.CyberSecurityLevyExempt">CyberSecurityLevyExempt</label>
+    <br />
+    <input type="text" asp-for="@transaction.CyberSecurityLevyExempt" name="CyberSecurityLevyExempt" />
+    <br />
+    <label asp-for="@transaction.PepDesignatedAccount">PepDesignatedAccount</label>
+    <br />
+    <input type="text" asp-for="@transaction.PepDesignatedAccount" name="PepDesignatedAccount" />
+    <br />
+    <label asp-for="@transaction.StampdutyExempt">StampdutyExempt</label>
+    <br />
+    <input type="text" asp-for="@transaction.StampdutyExempt" name="StampdutyExempt" />
+    <br />
+    <label asp-for="@transaction.inflow">inflow</label>
+    <br />
+    <input type="text" asp-for="@transaction.inflow" name="inflow" />
+    <br />
+
+    <button type="submit"> Send Transactions </button>
+    if (ViewData["success"] != null)
+    {
+        <script type="text/javascript">
+            window.onload = function () {
+                alert(@ViewBag.Message);
+            };
+        </script>
+    }
+
+}
+<br />
+<h4>GetTransactionType Response : </h4>
+<br />
+<h5>Status : @ViewBag.Status</h5>
+<br />
+<h5>Message : @ViewBag.Message</h5>
+<br />
+<h5>Description : @ViewBag.Description</h5>
+<br />
+<h5>Data : @ViewBag.Data</h5>
+<br />

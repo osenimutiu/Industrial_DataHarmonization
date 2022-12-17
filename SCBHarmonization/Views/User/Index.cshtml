@@ -1,0 +1,209 @@
+﻿@model SCBHarmonization.ViewModels.Tbl_UserVM
+@{
+    ViewBag.Title = "Index";
+}
+
+<style>
+    fieldset {
+        font-family: sans-serif;
+        border: 3px solid #1F497D;
+        background: #ddd;
+        border-radius: 5px;
+        padding: 15px;
+        margin-top: 100px;
+        margin-left: 250px;
+        margin-right: 250px;
+    }
+
+        fieldset legend {
+            background: black;
+            color: #fff;
+            padding: 5px 10px 10px 20px;
+            font-size: 15px;
+            border-radius: 5px;
+            box-shadow: 0 0 0 5px #ddd;
+            margin-left: 1px;
+            margin-right: 10px;
+        }
+</style>
+
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script type="text/javascript">
+    $(function () {
+        GetAllRoles();
+    });
+    //$(document).ready(function () {
+    //    GetAllUser();
+    //});
+
+    function GetAllRoles() {
+        $.ajax({
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            type: 'Get',
+            url: "/User/GetAllRoles",
+            success: function (data) {
+                $("#ddroleId").html('');
+                var tdContent = '';
+                for (var i = 0; i < data.length; i++) {
+                    tdContent += '<option value="' + data[i].Name + '">' + data[i].Name + '</option>'; // if Name is property of your Person object
+                }
+                $("#ddroleId").append(tdContent);
+            },
+            error: function () {
+                alert("Error!")
+            }
+        });
+    }
+
+
+    function SaveUser() {
+        var user = new Object();
+        user.UserId = $("#txtuserId").val();
+        user.Email = $("#txtEmail").val();
+        user.FirstName = $("#txtFirstName").val();
+        user.LastName = $("#txtLastName").val();
+        user.Password = $("#txtPassword").val();
+        user.ConfirmPassword = $("#txtConfirmPassword").val();
+        user.Role = $("#ddroleId").val();
+        var data = JSON.stringify({
+            objuser: user
+        });
+        return $.ajax({
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            type: 'POST',
+            url: "/User/Index",
+            data: data,
+            success: function (data) {
+                if (data.success === true) {
+                    //GetAllUser();
+                    //Reset();
+                    alert(data.message);
+                }
+                else {
+                    alert(data.message);
+                }
+            },
+            error: function () {
+                alert("Error!")
+            }
+        });
+    }
+
+    function GetAllUser() {
+        $.ajax({
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            type: 'Get',
+            url: "/Home/GetAllUser",
+            success: function (data) {
+                $("#trDiv").html('');
+                var tdContent = '';
+                for (var i = 0; i < data.length; i++) {
+                    tdContent += '<tr><td>' + data[i].UserName + '</td><td>' + data[i].Role + '</td>' + '<td>' + data[i].Status + '</td>' + '<td><a href="#" onclick="Edit(' + data[i].UserId + ",'" + data[i].UserName + "','" + data[i].Password + "','" + data[i].Role + "'," + data[i].Status + ');">Edit</a></td></tr>'; // if Name is property of your Person object
+                }
+                $("#trDiv").append(tdContent);
+            },
+            error: function () {
+                alert("Error!")
+            }
+        });
+    }
+    function Edit(UserId, UserName, Password, Role, Status) {
+        $("#exampleInputUserId").val(UserId);
+        $("#exampleInputUser").val(UserName);
+        $("#exampleInputPassword").val(Password);
+        $("#exampleInputPasswordRetype").val(Password);
+        $("#role").val(Role);
+        $("#status").val(Status);
+        $("#exampleInputPassword").hide();
+        $("#exampleInputPasswordRetype").hide();
+    }
+    function Reset() {
+        $("#exampleInputUserId").val(null);
+        $("#exampleInputUser").val(null);
+        $("#exampleInputPassword").val(null);
+        $("#exampleInputPasswordRetype").val(null);
+        $("#role").val(null);
+        $("#status").val(null);
+        $("#exampleInputPassword").show();
+        $("#exampleInputPasswordRetype").show();
+    }
+</script>
+
+@*<h2>Register</h2>*@
+@*@using (Html.BeginForm("Index", "User", FormMethod.Post, new { }))
+{*@
+<form>
+    <fieldset>
+        <legend>User Rogistration</legend>
+        <div class="container">
+            txtuserId
+            <div class="row">
+                <div class="form-group">
+                   <input type="hidden" id="txtuserId"/>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Email, new { @class = "control-label" })
+                    @Html.TextBoxFor(model => model.Email, new {@id="txtEmail", @class = "form-control", @style = "width: 400px" })
+                    @Html.ValidationMessageFor(model => model.Email, null, new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.FirstName, new { @class = "control-label" })
+                    @Html.TextBoxFor(model => model.FirstName, new { @id= "txtFirstName", @class = "form-control", @style = "width: 400px" })
+                    @Html.ValidationMessageFor(model => model.FirstName, null, new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.LastName, new { @class = "control-label" })
+                    @Html.TextBoxFor(model => model.LastName, new { @id = "txtLastName", @class = "form-control", @style = "width: 400px" })
+                    @Html.ValidationMessageFor(model => model.LastName, null, new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group">
+                    <div class="form-group col-md-6">
+                        <select class="form-control" id="ddroleId"></select>
+                    </div>
+                    @*@Html.LabelFor(model => model.Role, new { @class = "control-label" })
+                @Html.DropDownListFor(model => model.Role, @Model.ListOfRoles, new { @class = "form-control", id = "", @style = "width: 400px; height: 45px;" })
+                @Html.ValidationMessageFor(model => model.ListOfRoles, "", new { @class = "text-danger" })*@
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Password, new { @class = "control-label" })
+                    @Html.PasswordFor(model => model.Password, new { @id = "txtPassword", @class = "form-control", @style = "width: 400px" })
+                    @Html.ValidationMessageFor(model => model.Password, null, new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ConfirmPassword, new { @class = "control-label" })
+                    @Html.PasswordFor(model => model.ConfirmPassword, new { @id = "txtConfirmPassword", @class = "form-control", @style = "width: 400px" })
+                    @Html.ValidationMessageFor(model => model.ConfirmPassword, null, new { @class = "text-danger" })
+                </div>
+            </div>
+            <div style="color:red;">@ViewBag.ExistMessage</div>
+            <div style="color:red;">@ViewBag.PasswordError</div>
+            <div style="color: #32cf70;">@ViewBag.SuccessMessage</div>
+            <div class="row">
+                <div class="form-group">
+                    <input type="submit" onclick="SaveUser()" name="Register" value="Register" class="btn btn-primary active" />
+                </div>
+            </div>
+
+        </div>
+    </fieldset>
+</form>
+@*  *@}
+

@@ -1,0 +1,21 @@
+﻿@model SCBHarmonization.Models.TransactionStatus
+
+@{
+    ViewBag.Title = "SendTransactions";
+    Layout = "~/Views/Shared/_Layoutlte.cshtml";
+}
+
+<h4>GetTransactionType Response : </h4>
+<br />
+<h5>Status : @ViewBag.Status</h5>
+<br />
+<h5>Message : @ViewBag.Message</h5>
+<br />
+<h5>Description : @ViewBag.Description</h5>
+<br />
+<h5>Data : @ViewBag.Data</h5>
+<br />
+
+<div>
+    @Html.ActionLink("Home", "Index", "Home")
+</div>

@@ -1,0 +1,186 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script type="text/javascript">
+    $(function () {
+        $("#btnSave").click(function () {
+            DownLoad();
+        });
+        $("#loading").hide();
+        $("#btnCSV").click(function () {
+            ConvertToCSV();
+        });
+        $("#btnSaveb").click(function () {
+            DownLoadb();
+        });
+        $("#btnCSVDownlod").click(function () {
+            ExportNIBSSExceptions();
+        })
+    });
+
+
+
+
+    function DownLoad() {
+        var obj = new Object();
+        obj.HostName = $("#txtHost").val();
+        obj.UserName = $("#txtUserName").val();
+        obj.PublicKeyPath = $("#txtKeyPath").val();
+        obj.Port = $("#txtPort").val();
+        var data = JSON.stringify({
+            obj: obj
+        });
+        return $.ajax({
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            type: 'POST',
+            url: "/SFTPTransfer/Index",
+            data: data,
+            success: function (result) {
+
+                alert(result);
+
+            },
+            error: function () {
+                alert("Error!")
+            }
+        });
+    }
+
+    function DownLoadb() {
+        var obj = new Object();
+        obj.HostName = $("#txtHost").val();
+        obj.UserName = $("#txtUserName").val();
+        obj.PublicKeyPath = $("#txtKeyPath").val();
+        obj.Port = $("#txtPort").val();
+        var data = JSON.stringify({
+            obj: obj
+        });
+        return $.ajax({
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            type: 'POST',
+            url: "/SFTPTransfer/Indexb",
+            data: data,
+            success: function (result) {
+
+                alert(result);
+
+            },
+            error: function () {
+                alert("Error!")
+            }
+        });
+    }
+
+    function ConvertToCSV() {
+        $("#loading").show();
+        var obj = new Object();
+        obj.HostName = $("#txtHost").val();
+        obj.UserName = $("#txtUserName").val();
+        obj.PublicKeyPath = $("#txtKeyPath").val();
+        obj.Port = $("#txtPort").val();
+        var data = JSON.stringify({
+            obj: obj
+        });
+        return $.ajax({
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            type: 'POST',
+            url: "/CSVUpload/ConvertToCSV",
+            data: data,
+            success: function (result) {
+                alert(result.Message);
+                $("#loading").hide();
+            },
+            error: function () {
+                alert("Error!");
+                $("#loading").hide();
+            }
+        });
+    }
+
+    function ExportNIBSSExceptions() {
+        var obj = new Object();
+        obj.HostName = $("#txtHost").val();
+        obj.UserName = $("#txtUserName").val();
+        obj.PublicKeyPath = $("#txtKeyPath").val();
+        obj.Port = $("#txtPort").val();
+        var data = JSON.stringify({
+            obj: obj
+        });
+        return $.ajax({
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            type: 'POST',
+            url: "/SFTPTransfer/ExportNIBSSException",
+            data: data,
+            success: function (result) {
+                alert(result);
+            },
+            error: function () {
+                alert("Error!");
+            }
+        });
+    }
+</script>
+
+<h4>SFTP Credentials</h4>
+<div class="col-xl-12 col-md-12 mb-12">
+    <div class="card border-left-primary shadow h-100 py-2">
+        <div class="card-body">
+            <div class="row no-gutters align-items-center">
+                <div class="col mr-2">
+                    @*<div class="form-group col-md-6">
+                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">SFTP Credentials</div>
+                        </div>*@
+
+                    <form class="user">
+                        <div class="">
+                            @*<div class="form-group col-md-6">
+                <input type="text" class="form-control form-control-user" id="txtHost" aria-describedby="emailHelp" placeholder="HostName/IP Address">
+            </div>
+            <div class="form-group col-md-6">
+                <input type="text" class="form-control form-control-user" id="txtUserName" aria-describedby="emailHelp" placeholder="UserName">
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-md-6">
+                <input type="text" class="form-control form-control-user" id="txtKeyPath" aria-describedby="emailHelp" placeholder="Key Path">
+            </div>
+            <div class="form-group col-md-6">
+                <input type="number" class="form-control form-control-user" id="txtPort" aria-describedby="emailHelp" placeholder="Port Number">
+            </div>
+        </div>*@
+
+                            <div class="form-group">
+                                <a href="#" id="btnSave" class="btn btn-primary btn-sm">
+                                    Download File
+                                </a>
+                                @*<a href="#" id="btnSaveb" class="btn btn-primary btn-sm">
+            Download SFTP File
+        </a>*@
+                                @*<a href="#" id="btnCSV" class="btn btn-success btn-sm">
+            Convert To CSV
+        </a>*@
+                                <a href="#" id="btnCSVDownlod" class="btn btn-success btn-sm">
+                                    Download Exception
+                                </a>
+                            </div>
+                            <br />
+                            <br />
+                            <div id="loading" class="form-group">
+                                <p style="font-size: 60px;">File Conversion in Progress...</p>
+                            </div>
+                            <br />
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<br />

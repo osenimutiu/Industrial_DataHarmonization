@@ -1,0 +1,199 @@
+﻿
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <link rel="apple-touch-icon" sizes="76x76" href="~/NewDashboard/assets/img/apple-icon.png">
+    <link rel="icon" type="image/png" href="~/NewDashboard/assets/img/favicon.png">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <title>
+        Data Harmonization
+    </title>
+
+    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
+    <!--     Fonts and icons     -->
+    <link href="~/Content/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
+    <!-- CSS Files -->
+    <link href="~/NewDashboard/assets/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/NewDashboard/assets/css/paper-dashboard.css?v=2.0.1" rel="stylesheet" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/alertifyjs/alertify.min.css" rel="stylesheet" />
+    <link href="~/Content/alertifyjs/themes/default.min.css" rel="stylesheet" />
+</head>
+
+<body class="">
+
+    <div class="wrapper ">
+        <div class="sidebar" data-color="black" data-active-color="danger">
+
+            <div class="sidebar-wrapper bg-dark">
+                <ul class="nav">
+
+                    <li>
+                        <a href="~/Home/Index">
+                            <i class="fas fa-home text-white"></i>
+                            <p class="text-white"><b>Home</b></p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("Index", "Credential")">
+                            <i class="fas fa-cogs text-white"></i>
+                            <p class="text-white"><b>Reset Credentials</b></p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("Index", "ThirdImport")">
+                            <i class="fas fa-upload text-white"></i>
+                            <p class="text-white">Load Data</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("GetTransaction", "WholeTransaction")">
+                            <i class="fas fa-save text-white"></i>
+                            <p class="text-white">Loaded Data</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="~/Ex/Index">
+                            <i class="fas fa-wrench text-white"></i>
+                            <p class="text-white">Exception And Fixes</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("Index", "TransactionStatus")">
+                            <i class="fas fa-send text-white"></i>
+                            <p class="text-white"> Send Data & Status</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("Index", "Transaction")">
+                            <i class="fas fa-share-square text-white"></i>
+                            <p class="text-white">GetTransactionsTypes</p>
+                        </a>
+                    </li>
+                    @*<li>
+            <a href="@Url.Action("Index", "ErrorLog")">
+                <i class="fas fa-exclamation text-white"></i>
+                <p class="text-white">Error Logs</p>
+            </a>
+        </li>*@
+                    <li>
+                        <a href="@Url.Action("GetErrorList", "ErrorLog")">
+                            <i class="fas fa-exclamation text-white"></i>
+                            <p class="text-white">Error Log</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("UploadGuidLines", "ThirdImport")">
+                            <i class="fas fa-warning text-white"></i>
+                            <p class="text-white">Upload Guideline</p>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="@Url.Action("Index", "SendMailer")">
+                            <i class="far fa-building text-white"></i>
+                            <p class="text-white">Fintrak Support</p>
+                        </a>
+                    </li>
+
+                    
+                      
+                @*<li>
+                    
+                    <a href="@Url.Action("Index", "User")">
+                        <i class="fas fa-user"></i>
+                        <p class="text-white">Add User</p>
+                    </a>
+                </li>*@
+
+                </ul>
+                <!-- Nav Item - Pages Collapse Menu -->
+              
+            </div>
+
+        </div>
+        <div class="main-panel bg-white">
+            <!-- Navbar -->
+            <nav class="navbar navbar-expand-lg navbar-absolute fixed-top navbar-transparent">
+                <div class="container-fluid">
+                    <div class="navbar-wrapper">
+                        <div class="navbar-toggle">
+                            <button type="button" class="navbar-toggler">
+                                <span class="navbar-toggler-bar bar1"></span>
+                                <span class="navbar-toggler-bar bar2"></span>
+                                <span class="navbar-toggler-bar bar3"></span>
+                            </button>
+                        </div>
+                        <a class="navbar-brand" href="javascript:;"></a>
+                    </div>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-bar navbar-kebab"></span>
+                        <span class="navbar-toggler-bar navbar-kebab"></span>
+                        <span class="navbar-toggler-bar navbar-kebab"></span>
+                    </button>
+                    <div class="collapse navbar-collapse justify-content-end" id="navigation">
+                        <div class="btn btn-outline-primary col-md-2" style="position:relative; margin-top: 10px;">
+                            @Html.ActionLink("PING", "Ping", "Credential")
+                            @if (ViewBag.Message != null)
+                            {
+                            <script type="text/javascript">
+                                window.onload = function () {
+                                    alert(ViewBag.Message);
+                                };
+                            </script>
+                            }
+                        </div>
+
+                        @Html.Partial("_LoginPartial")
+
+                    </div>
+                </div>
+            </nav>
+            <!-- End Navbar -->
+            <div class="content">
+                @RenderBody()
+            </div>
+            <footer class="footer footer-black footer-white bg-white">
+                <div class="container-fluid">
+                    <div class="row">
+
+                        <div class="credits ml-auto">
+                            @*Copyright &copy;@DateTime.Now.Year - Standard Chartered*@
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </div>
+
+    <!--   Core JS Files   -->
+    <script src="~/NewDashboard/assets/js/core/jquery.min.js"></script>
+    <script src="~/NewDashboard/assets/js/core/popper.min.js"></script>
+    <script src="~/NewDashboard/assets/js/core/bootstrap.min.js"></script>
+    <script src="~/NewDashboard/assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
+    <script src="~/NewDashboard/assets/js/plugins/bootstrap-notify.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    Google Maps Plugin
+    <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
+    <script src="~/NewDashboard/assets/demo/demo.js"></script>
+    Control Center for Now Ui Dashboard: parallax effects, scripts for the example pages etc
+    <script src="~/NewDashboard/assets/js/paper-dashboard.min.js?v=2.0.1" type="text/javascript"></script> Paper Dashboard DEMO methods, don't include it in your project!
+    <script>
+        $(document).ready(function () {
+            // Javascript method's body can be found in assets/assets-for-demo/js/demo.js
+            demo.initChartsPages();
+        });
+    </script>
+    Chart JS
+    <script src="~/NewDashboard/assets/js/plugins/chartjs.min.js"></script>
+    Notifications Plugin
+    <script src="~/Scripts/alertify.min.js"></script>
+
+    @RenderSection("scripts", required: false)
+</body>
+
+</html>

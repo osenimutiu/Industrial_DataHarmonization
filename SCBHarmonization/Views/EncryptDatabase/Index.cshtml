@@ -1,0 +1,410 @@
+﻿@{
+    Layout = null;
+}
+
+
+
+
+@model List<SCBHarmonization.Models.PersonModel>
+@{ ViewData["Title"] = "Home Page"; }
+
+
+<!--<!DOCTYPE html>
+<html>
+<head>
+    <title>Encryption App</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+    <style>
+        html, body {
+            min-height: 100%;
+        }
+
+        body, div, form, input, select, p {
+            padding: 0;
+            margin: 0;
+            outline: none;
+            font-family: Roboto, Arial, sans-serif;
+            font-size: 14px;
+            color: #666;
+            line-height: 22px;
+        }
+
+        h1 {
+            position: absolute;
+            margin: 0;
+            font-size: 32px;
+            color: #fff;
+            z-index: 2;
+        }
+
+        h2 {
+            font-weight: 400;
+        }
+
+        .testbox {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: inherit;
+            padding: 20px;
+        }
+
+        form {
+            width: 100%;
+            padding: 20px;
+            border-radius: 6px;
+            background: #fff;
+            box-shadow: 0 0 20px 0 #095484;
+        }
+
+        .banner {
+            position: relative;
+            height: 180px;
+            background-image: url("~/data/FINTRAK.png");
+            background-size: cover;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+            .banner::after {
+                content: "";
+                background-color: rgba(0, 0, 0, 0.4);
+                position: absolute;
+                width: 100%;
+                height: 100%;
+            }
+
+        input, select {
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+
+        input {
+            width: calc(100% - 10px);
+            padding: 5px;
+        }
+
+        select {
+            width: 100%;
+            padding: 7px 0;
+            background: transparent;
+        }
+
+        .item:hover p, .item:hover i, .question:hover p, .question label:hover, input:hover::placeholder, a {
+            color: #095484;
+        }
+
+        .item input:hover, .item select:hover {
+            border: 1px solid transparent;
+            box-shadow: 0 0 6px 0 #095484;
+            color: #095484;
+        }
+
+        .item {
+            position: relative;
+            margin: 10px 0;
+        }
+
+        input[type="date"]::-webkit-inner-spin-button {
+            display: none;
+        }
+
+        .item i, input[type="date"]::-webkit-calendar-picker-indicator {
+            position: absolute;
+            font-size: 20px;
+            color: #a9a9a9;
+        }
+
+        .item i {
+            right: 2%;
+            top: 30px;
+            z-index: 1;
+        }
+
+        [type="date"]::-webkit-calendar-picker-indicator {
+            right: 1%;
+            z-index: 2;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        input[type=checkbox] {
+            display: none;
+        }
+
+        label.check {
+            position: relative;
+            display: inline-block;
+            margin: 5px 20px 10px 0;
+            cursor: pointer;
+        }
+
+        .question span {
+            margin-left: 30px;
+        }
+
+        span.required {
+            margin-left: 0;
+            color: red;
+        }
+
+        label.check:before {
+            content: "";
+            position: absolute;
+            top: 2px;
+            left: 0;
+            width: 16px;
+            height: 16px;
+            border-radius: 2px;
+            border: 1px solid #095484;
+        }
+
+        input[type=checkbox]:checked + .check:before {
+            background: #095484;
+        }
+
+        label.check:after {
+            content: "";
+            position: absolute;
+            top: 6px;
+            left: 4px;
+            width: 8px;
+            height: 4px;
+            border: 3px solid #fff;
+            border-top: none;
+            border-right: none;
+            transform: rotate(-45deg);
+            opacity: 0;
+        }
+
+        input[type=checkbox]:checked + label:after {
+            opacity: 1;
+        }
+
+        .btn-block {
+            margin-top: 10px;
+            text-align: center;
+        }
+
+        button {
+            width: 150px;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            background: #095484;
+            font-size: 16px;
+            color: #fff;
+            cursor: pointer;
+        }
+
+            button:hover {
+                background: #0666a3;
+            }
+
+        .testbox {
+        }
+    </style>
+</head>
+<body>
+    <div class="testbox" style="width:800px; margin:0 auto;">
+
+
+        @using (Html.BeginForm("Index", "EncryptDatabase", FormMethod.Post))
+        {
+           
+            <h3>Enter Credentials Details</h3> SCBHarmonization.Models.PersonModel person = new SCBHarmonization.Models.PersonModel();
+
+
+            <label asp-for="@person.Server">Server</label>
+            <br />
+            <input type="text" asp-for="@person.Server" name="Server" />
+            <br />
+            <label asp-for="@person.Database">Database</label>
+            <br />
+            <input type="text" asp-for="@person.Database" name="Database" />
+            <br />
+            <br />
+            <input type="text" asp-for="@person.User" name="User" />
+            <br />
+            <label asp-for="@person.Password">Password</label>
+            <br />
+            <input type="password" asp-for="@person.Password" name="Password" />
+            <br />
+            <label asp-for="@person.ConfirmPassword">Confirm Password</label>
+            <br />
+            <input type="password" asp-for="@person.ConfirmPassword" name="ConfirmPassword" />
+            <br />
+            <label asp-for="@person.Trusted_Connection">Trusted_Connection</label>
+            <br />
+            <select name="Trusted_Connection" asp-for="@person.Trusted_Connection">
+                <option value=" TRUE">TRUE</option>
+                <option value=" FALSE">FALSE</option>
+            </select>
+            <br />
+            <label asp-for="@person.MultipleActiveResultSets">MultipleActiveResultSets</label>
+            <br />
+            <select name="MultipleActiveResultSets" asp-for="@person.MultipleActiveResultSets">
+                <option value=" TRUE">TRUE</option>
+                <option value=" FALSE">FALSE</option>
+            </select>
+            <br />
+            <label asp-for="@person.Integrated_Security">Integrated Security</label>
+            <br />
+            <select name="Integrated_Security" asp-for="@person.Integrated_Security">
+                <option value=" TRUE">TRUE</option>
+                <option value=" FALSE">FALSE</option>
+            </select>
+            <br />
+            <button type="submit"> Save </button> if (ViewData["success"] != null)
+            {
+                <script type="text/javascript">
+                    window.onload = function () {
+                        alert("Saved successfully!...Edit saved credentials before encrypting");
+                    };</script>
+            }
+            if (ViewData["error"] != null)
+            {
+                <script type="text/javascript">
+                    window.onload = function () {
+                        alert("Password Mismatch");
+                    };</script>
+            }
+        }
+
+    </div>-->
+    @*<div align="center">
+            @using (Html.BeginForm("EncryptCredentials", "Home", FormMethod.Post))
+            {
+                <button type="submit"> Encrypt </button>
+                if (ViewData["encrypt"] != null)
+                {
+                    <script type="text/javascript">
+                        window.onload = function () {
+                            alert("Encryption successfull!...Copy Encrypted Connection to Application");
+                        };
+                    </script>
+                }
+            }
+        </div>*@
+<!--</body>
+</html>-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Data Harmonization | Log in</title>
+
+    <!-- Google Font: Source Sans Pro -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="~/FrontEnd/plugins/fontawesome-free/css/all.min.css">
+    <!-- icheck bootstrap -->
+    <link rel="stylesheet" href="~/FrontEnd/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="~/FrontEnd/dist/css/adminlte.min.css">
+</head>
+<body class="hold-transition login-page" style="background-image: url('../../Content/img/background_15.jpg');">
+    <div class="login-box">
+        <div class="login-logo">
+            <a href="#"><h1 style="color:white"><b>Data </b> Harmonization</h1></a>
+        </div>
+
+        <!-- /.login-logo -->
+        <div class="card">
+            <div class="card-body login-card-body">
+
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="p-5">
+                            <div class="user">
+                                @using (Html.BeginForm("Index", "EncryptDatabase", FormMethod.Post))
+                                {
+
+                                    <h3>Enter Credentials Details</h3> SCBHarmonization.Models.PersonModel person = new SCBHarmonization.Models.PersonModel();
+
+
+                                    <label asp-for="@person.Server">Server</label>
+                                    <br />
+                                    <input class="form-control" type="text" asp-for="@person.Server" name="Server" />
+                                    <br />
+                                    <label asp-for="@person.Database">Database</label>
+                                    <br />
+                                    <input class="form-control" type="text" asp-for="@person.Database" name="Database" />
+                                    <br />
+                                    <label asp-for="@person.User">User</label>
+
+                                    <br />
+                                    <input class="form-control" type="text" asp-for="@person.User" name="User" />
+                                    <br />
+                                    <label asp-for="@person.Password">Password</label>
+                                    <br />
+                                    <input class="form-control" type="password" asp-for="@person.Password" name="Password" />
+                                    <br />
+                                    <label asp-for="@person.ConfirmPassword">Confirm Password</label>
+                                    <br />
+                                    <input class="form-control" type="password" asp-for="@person.ConfirmPassword" name="ConfirmPassword" />
+                                    <br />
+                                    <label asp-for="@person.Trusted_Connection">Trusted_Connection</label>
+                                    <br />
+                                    <select class="form-control" name="Trusted_Connection" asp-for="@person.Trusted_Connection">
+                                        <option value=" TRUE">TRUE</option>
+                                        <option value=" FALSE">FALSE</option>
+                                    </select>
+                                    <br />
+
+                                    <button class="btn btn-primary btn-block" type="submit"> Save </button> if (ViewData["success"] != null)
+                                    {
+                                        <script type="text/javascript">
+                                            window.onload = function () {
+                                                alert("Saved successfully!...Edit saved credentials before encrypting");
+                                            };</script>
+                                    }
+                                    if (ViewData["error"] != null)
+                                    {
+                                        <script type="text/javascript">
+                                            window.onload = function () {
+                                                alert("Password Mismatch");
+                                            };</script>
+                                    }
+                                }
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                @*<p class="mb-0">
+                      <a href="register.html" class="text-center">Register a new membership</a>
+                    </p>*@
+            </div>
+            <!-- /.login-card-body -->
+        </div>
+    </div>
+
+            @using (Html.BeginForm("DecryptConnString", "EncryptDatabase", FormMethod.Post))
+            {
+        <button type="submit"> dnc </button> if (ViewData["encrypt"] != null)
+                        {
+        <script type="text/javascript">
+            window.onload = function () {
+                alert("decrypted");
+            };
+        </script>}
+                    }
+    <!-- /.login-box -->
+    <!-- jQuery -->
+    <script src="~/FrontEnd/plugins/jquery/jquery.min.js"></script>
+    <!-- Bootstrap 4 -->
+    <script src="~/FrontEnd/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- AdminLTE App -->
+    <script src="~/FrontEnddist/js/adminlte.min.js"></script>
+</body>
+</html>

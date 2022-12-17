@@ -1,0 +1,31 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="utf-8">
+    <title>404 Error Page</title>
+    <link rel="stylesheet" href="~/Content/css/style.css">
+</head>
+<body>
+    <div id="error-page">
+        <div class="content">
+            <h2 class="header" data-text="">
+                <img src="~/Content/img/Errors-01.png" />
+            </h2>
+            <h4 data-text="Opps! Page not found">
+                Opps! Something went wrong while processing your request.
+            </h4>
+            <p>
+                Please, click on error log to see the error and make neccessary fixes.
+            </p>
+            <div class="btns">
+                @*<a href="@Url.Action("Index", "ErrorLog")">Error Log</a>*@
+                <a onclick="history.go(-1); return false" style="cursor:pointer">Go Back</a>
+                <a href="@Url.Action("Index","SendMailer")">Report Problem</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

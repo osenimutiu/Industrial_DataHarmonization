@@ -1,0 +1,519 @@
+﻿@model SCBHarmonization.ViewModels.tbl_ExViewModel
+@{
+    ViewBag.Title = "UnsendData";
+    Layout = "~/Views/Shared/_Layoutlte.cshtml";
+}
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css" />
+<link rel="stylesheet" href="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.10.4/themes/hot-sneaks/jquery-ui.css" />
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+
+
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script type="text/javascript">
+    $(function () {
+        $("#txtTransDate").datepicker(
+            {
+                dateFormat: 'mm-dd-yy',
+                changeMonth: true,
+                changeYear: true
+            });
+        $("#btnSave").click(function () {
+            updateTransaction();
+        });
+    });
+
+
+    function checkTransaction() {
+        debugger
+        var transId = $("#txtTransId").val();
+        return $.ajax({
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            type: 'GET',
+            url: "/NIBBSPortal/GetUnsendData",
+            data: { transId: transId },
+            success: function (result) {
+                $("#trDiv").html('');
+                var tdContent = '';
+                tdContent += '<tr><td><a href="#" onclick="edit(' + result.TransID + ');">Edit</a>' +
+
+                    //+ result.Amount +
+                    //tdContent += '<tr><td><a href="#" onclick="Edit(' + result.TransID ');">Edit</a> + result.Amount +
+                    //202207010027111
+                    '</td><td>' + result.Amount +
+                    '</td><td>' + result.Vat +
+                    '</td>' + '<td>' + result.Fee +
+                    '</td>' + '<td>' + result.TransID +
+                    '</td>' + '<td>' + result.SrcAcctNo +
+                    '</td>' + '<td>' + result.SrcInstCode +
+                    '</td>' + '<td>' + result.SrcInstBranchCode +
+                    '</td>' + '<td>' + result.SrcInstType +
+                    '</td>' + '<td>' + result.SrcInstUniqueID +
+                    '</td>' + '<td>' + result.DestAcctNo +
+                    '</td>' + '<td>' + result.DestInstCode +
+                    '</td>' + '<td>' + result.DestInstBranchCode +
+                    '</td>' + '<td>' + result.DestInstType +
+                    '</td>' + '<td>' + result.DestInstUniqueID +
+                    '</td>' + '<td>' + result.PaymentType +
+                    '</td>' + '<td>' + result.BankIncome +
+                    '</td>' + '<td>' + result.TransDate +
+                    '</td>' + '<td>' + result.PsspParty +
+                    '</td>' + '<td>' + result.AccountType +
+                    '</td>' + '<td>' + result.AccountClass +
+                    '</td>' + '<td>' + result.AccountDesignation +
+                    '</td>' + '<td>' + result.Currency +
+                    '</td>' + '<td>' + result.Channels +
+                    '</td>' + '<td>' + result.TransactionTypeCode +
+                    '</td>' + '<td>' + result.PepDesignatedAccount +
+                    '</td>' + '<td>' + result.CypherSecurityLevyExempt +
+                    '</td>' + '<td>' + result.StampDutyExempt +
+                    '</td>' + '<td>' + result.Inflow +
+                    '</td>' + '<td>' + result.Emtl +
+                    '</td>' + '<td>' + result.ReceiverLocation +
+
+                    '<td></td></tr>';
+                $("#trDiv").append(tdContent);
+            },
+            error: function () {
+                alert("Error!")
+            }
+        });
+    }
+
+
+    function edit(TransId) {
+        $.ajax({
+            async: true,
+            type: 'GET',
+            dataType: 'JSON',
+            contentType: 'application/json; charset=utf-8',
+            data: { transId: TransId },
+            url: '/NIBBSPortal/GetUnsendData',
+            success: function (data) {
+                $("#txtAmount").val(data.Amount);
+                $("#txtVat").val(data.Vat);
+                $("#txtFee").val(data.Fee);
+                $("#txtTransID").val(data.TransID);
+                $("#txtSrcAcctNo").val(data.SrcAcctNo);
+                $("#txtSrcInstCode").val(data.SrcInstCode);
+                $("#txtSrcInstBranchCode").val(data.SrcInstBranchCode);
+                $("#ddSrcInstType").val(data.SrcInstType);
+                $("#txtSrcInstUniqueID").val(data.SrcInstUniqueID);
+                $("#txtTransID").val(data.TransID);
+                $("#txtSrcAcctNo").val(data.SrcAcctNo);
+                $("#txtSrcInstCode").val(data.SrcInstCode);
+                $("#txtDestAcctNo").val(data.DestAcctNo);
+                $("#txtDestInstCode").val(data.DestInstCode);
+                $("#txtDestInstBranchCode").val(data.DestInstBranchCode);
+                $("#ddDestInstType").val(data.DestInstType);
+                $("#txtDestInstUniqueID").val(data.DestInstUniqueID);
+                $("#ddPaymentType").val(data.PaymentType);
+                $("#txtBankIncome").val(data.BankIncome);
+                $("#txtTransDate").val(data.TransDate);
+                $("#txtPsspParty").val(data.PsspParty);
+                $("#ddAccountType").val(data.AccountType);
+                $("#ddAccountClass").val(data.AccountClass);
+                $("#ddAccountDesignation").val(data.AccountDesignation);
+
+                $("#ddCurrency").val(data.Currency);
+                $("#ddChannels").val(data.Channels);
+                $("#txtTransactionTypeCode").val(data.TransactionTypeCode);
+                $("#txtDestInstUniqueID").val(data.DestInstUniqueID);
+                $("#txtPepDesignatedAccount").val(data.PepDesignatedAccount);
+                $("#txtCypherSecurityLevyExempt").val(data.CypherSecurityLevyExempt);
+                $("#txtStampDutyExempt").val(data.StampDutyExempt);
+                $("#txtTenantId").val(data.TenantId);
+                $("#txtExceptionType").val(data.ExceptionType);
+                $("#txtAdditionalField").val(data.AdditionalField);
+                $("#txtInflow").val(data.Inflow);
+                $("#txtEmtl").val(data.Emtl);
+                $("#txtReceiverLocation").val(data.ReceiverLocation);
+                $("#divAddException").modal({ show: true });
+                // $("#divAddRoom").modal('show');
+                $("#txtId").val(data.Id);
+                $("#btnSave").text("Update");
+
+
+
+            },
+            error: function () {
+                alert('There is some problem to process your request.');
+            }
+        });
+    }
+
+    function updateTransaction() {
+        var obj = new Object();
+        obj.Id = $("#txtId").val();
+        obj.Amount = $("#txtAmount").val();
+        obj.Vat = $("#txtVat").val();
+        obj.Fee = $("#txtFee").val();
+        obj.TransID = $("#txtTransID").val();
+        obj.SrcAcctNo = $("#txtSrcAcctNo").val();
+        obj.SrcInstCode = $("#txtSrcInstCode").val();
+        obj.SrcInstBranchCode = $("#txtSrcInstBranchCode").val();
+        obj.SrcInstType = $("#ddSrcInstType").val();
+        obj.SrcInstUniqueID = $("#txtSrcInstUniqueID").val();
+        obj.DestAcctNo = $("#txtDestAcctNo").val();
+        obj.DestInstCode = $("#txtDestInstCode").val();
+        obj.DestInstBranchCode = $("#txtDestInstBranchCode").val();
+        obj.DestInstType = $("#ddDestInstType").val();
+        obj.DestInstUniqueID = $("#txtDestInstUniqueID").val();
+        obj.BankIncome = $("#txtBankIncome").val();
+        obj.TransDate = $("#txtTransDate").val();
+        obj.PsspParty = $("#txtPsspParty").val();
+        obj.AccountType = $("#ddAccountType").val();
+        obj.AccountClass = $("#ddAccountClass").val();
+        obj.AccountDesignation = $("#ddAccountDesignation").val();
+        obj.Currency = $("#ddCurrency").val();
+        obj.PaymentType = $("#ddPaymentType").val();
+        obj.Channels = $("#ddChannels").val();
+        obj.TransactionTypeCode = $("#txtTransactionTypeCode").val();
+        obj.CypherSecurityLevyExempt = $("#txtCypherSecurityLevyExempt").val();
+        obj.PepDesignatedAccount = $("#txtPepDesignatedAccount").val();
+        obj.StampDutyExempt = $("#txtStampDutyExempt").val();
+        obj.Inflow = $("#txtInflow").val();
+        obj.Emtl = $("#txtEmtl").val();
+        obj.ReceiverLocation = $("#txtReceiverLocation").val();
+        var data = JSON.stringify({
+            obj: obj
+        });
+        return $.ajax({
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            type: 'POST',
+            url: "/NIBBSPortal/UpdateUnsendData",
+            data: data,
+            success: function (result) {
+                alert(result);
+            },
+            error: function () {
+                alert("Error!")
+            }
+        });
+    }
+
+
+</script>
+
+
+<h2>Input TransactionID</h2>
+<div class="col-xl-12 col-md-12 mb-12">
+    <div class="card border-left-primary shadow h-100 py-2">
+        <div class="card-body">
+            <div class="row no-gutters align-items-center">
+                <div class="col mr-2">
+
+                    <form class="user">
+                        <div class="form-group col-md-6">
+                            <input type="text" class="form-control form-control-user" id="txtTransId" aria-describedby="emailHelp" placeholder="Transaction Id">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <a href="#" onclick="checkTransaction()" class="btn btn-primary btn-sm">
+                                Search
+                            </a>
+                            @*<a href="#" onclick="checkExistingList()" class="btn btn-primary btn-sm">
+                                    Check Existing List
+                                </a>*@
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<br />
+
+<div class="col-xl-12 col-md-12 mb-12">
+    <div class="card border-left-primary shadow h-100 py-2">
+        <div class="card-body">
+            <div class="row no-gutters align-items-center">
+                <div class="col mr-2">
+                    <div class="form-group col-md-6">
+                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Filter Transaction</div>
+                    </div>
+
+                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th>Edit</th>
+                                <th>Amount</th>
+                                <th>Vat</th>
+                                <th>Fee</th>
+                                <th>TransID</th>
+                                <th>SrcAcctNo</th>
+                                <th>SrcInstCode</th>
+                                <th>SrcInstBranchCode</th>
+                                <th>SrcInstType</th>
+                                <th>SrcInstUniqueID</th>
+                                <th>DestAcctNo</th>
+                                <th>DestInstCode</th>
+                                <th>DestInstBranchCode</th>
+                                <th>DestInstType</th>
+                                <th>DestInstUniqueID</th>
+                                <th>PaymentType</th>
+                                <th>BankIncome</th>
+                                <th>TransDate</th>
+                                <th>PsspParty</th>
+                                <th>AccountType</th>
+                                <th>AccountClass</th>
+                                <th>AccountDesignation</th>
+                                <th>Currency</th>
+                                <th>Channels</th>
+                                <th>TransactionTypeCode</th>
+                                <th>PepDesignatedAccount</th>
+                                <th>CypherSecurityLevyExempt</th>
+                                <th>StampDutyExempt</th>
+                                <th>Inflow</th>
+                                <th>Emtl</th>
+                                <th>ReceiverLocation</th>
+                            </tr>
+                        </thead>
+                        <tbody id="trDiv"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@*Modal*@
+<div class="bg-white">
+    <div id="divAddException" class=" modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content" style="width: 1000px; position: relative; right: 100px;">
+                <div class="modal-header bg-secondary">
+                    <h5 class="modal-title text-center text-white"> Edit</h5>
+                    <button type="button" class="close" data-dismiss="modal"> &times;</button>
+                </div>
+                <div class="modal-body">
+                    <form id="formRoom">
+                        <div class="container">
+                            @Html.HiddenFor(model => model.Id, new { @id = "txtId" })
+                            @*<div class="row">
+                                    <div class="form-group col-md-9">
+                                        @Html.LabelFor(model => model.ExceptionType)
+                                        @Html.TextBoxFor(model => model.ExceptionType, new { @class = "form-control", id = "txtExceptionType", @disabled = "true" })
+                                        @Html.ValidationMessageFor(model => model.ExceptionType, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>*@
+                            <div class="row">
+                                <div class="form-group  col-md-4">
+                                    @Html.LabelFor(model => model.Amount)
+                                    @Html.TextBoxFor(model => model.Amount, new { @class = "form-control", id = "txtAmount" })
+                                    @Html.ValidationMessageFor(model => model.Amount, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="form-group col-md-4">
+                                    @Html.LabelFor(model => model.Vat)
+                                    @Html.TextBoxFor(model => model.Vat, new { @class = "form-control", id = "txtVat" })
+                                    @Html.ValidationMessageFor(model => model.Vat, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="form-group col-md-4">
+                                    @Html.LabelFor(model => model.Fee)
+                                    @Html.TextBoxFor(model => model.Fee, new { @class = "form-control", id = "txtFee" })
+                                    @Html.ValidationMessageFor(model => model.Fee, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-md-4">
+                                    @Html.LabelFor(model => model.TransID)
+                                    @Html.TextBoxFor(model => model.TransID, new { @class = "form-control", id = "txtTransID" })
+                                    @Html.ValidationMessageFor(model => model.TransID, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="form-group col-md-4">
+                                    @Html.LabelFor(model => model.SrcAcctNo)
+                                    @Html.TextBoxFor(model => model.SrcAcctNo, new { @class = "form-control", id = "txtSrcAcctNo" })
+                                    @Html.ValidationMessageFor(model => model.SrcAcctNo, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="form-group col-md-4">
+                                    @Html.LabelFor(model => model.SrcInstCode)
+                                    @Html.TextBoxFor(model => model.SrcInstCode, new { @class = "form-control", id = "txtSrcInstCode" })
+                                    @Html.ValidationMessageFor(model => model.SrcInstCode, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="form-group  col-md-4">
+                                    @Html.LabelFor(model => model.SrcInstBranchCode)
+                                    @Html.TextBoxFor(model => model.SrcInstBranchCode, new { @class = "form-control", id = "txtSrcInstBranchCode" })
+                                    @Html.ValidationMessageFor(model => model.SrcInstBranchCode, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="form-group col-md-4">
+                                    @Html.LabelFor(model => model.SrcInstType)
+                                    @Html.DropDownListFor(model => model.SrcInstType, @Model.ListOfSrctInstType, new { @class = "form-control", id = "ddSrcInstType" })
+                                    @Html.ValidationMessageFor(model => model.SrcInstType, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="form-group col-md-4">
+                                    @Html.LabelFor(model => model.SrcInstUniqueID)
+                                    @Html.TextBoxFor(model => model.SrcInstUniqueID, new { @class = "form-control", id = "txtSrcInstUniqueID" })
+                                    @Html.ValidationMessageFor(model => model.SrcInstUniqueID, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-md-4">
+                                    @Html.LabelFor(model => model.DestAcctNo)
+                                    @Html.TextBoxFor(model => model.DestAcctNo, new { @class = "form-control", id = "txtDestAcctNo" })
+                                    @Html.ValidationMessageFor(model => model.DestAcctNo, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="form-group col-md-4">
+                                    @Html.LabelFor(model => model.DestInstCode)
+                                    @Html.TextBoxFor(model => model.DestInstCode, new { @class = "form-control", id = "txtDestInstCode" })
+                                    @Html.ValidationMessageFor(model => model.DestInstCode, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="form-group col-md-4">
+                                    @Html.LabelFor(model => model.DestInstBranchCode)
+                                    @Html.TextBoxFor(model => model.DestInstBranchCode, new { @class = "form-control", id = "txtDestInstBranchCode" })
+                                    @Html.ValidationMessageFor(model => model.DestInstBranchCode, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group  col-md-4">
+                                    @Html.LabelFor(model => model.DestInstType)
+                                    @Html.DropDownListFor(model => model.DestInstType, @Model.ListOfDestInstType, new { @class = "form-control", id = "ddDestInstType" })
+                                    @Html.ValidationMessageFor(model => model.DestInstType, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="form-group col-md-4">
+                                    @Html.LabelFor(model => model.DestInstUniqueID)
+                                    @Html.TextBoxFor(model => model.DestInstUniqueID, new { @class = "form-control", id = "txtDestInstUniqueID" })
+                                    @Html.ValidationMessageFor(model => model.DestInstUniqueID, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="form-group col-md-4">
+                                    @Html.LabelFor(model => model.PaymentType)
+                                    @Html.DropDownListFor(model => model.PaymentType, @Model.ListOfPaymentType, new { @class = "form-control", id = "ddPaymentType" })
+                                    @Html.ValidationMessageFor(model => model.PaymentType, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+
+                            <div class="row">
+                                <div class="form-group col-md-4">
+                                    @Html.LabelFor(model => model.BankIncome)
+                                    @Html.TextBoxFor(model => model.BankIncome, new { @class = "form-control", id = "txtBankIncome" })
+                                    @Html.ValidationMessageFor(model => model.BankIncome, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="form-group col-md-4">
+
+
+                                    @Html.LabelFor(model => model.ReceiverLocation)
+                                    @Html.TextBoxFor(model => model.ReceiverLocation, new { @class = "form-control", id = "txtReceiverLocation" })
+                                    @Html.ValidationMessageFor(model => model.ReceiverLocation, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="form-group col-md-4">
+                                    @Html.LabelFor(model => model.PsspParty)
+                                    @Html.TextBoxFor(model => model.PsspParty, new { @class = "form-control", id = "txtPsspParty" })
+                                    @Html.ValidationMessageFor(model => model.PsspParty, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+
+                            <div class="row">
+                                <div class="form-group  col-md-4">
+                                    @Html.LabelFor(model => model.AccountType)
+                                    @Html.DropDownListFor(model => model.AccountType, @Model.ListOfAccountType, new { @class = "form-control", id = "ddAccountType" })
+                                    @Html.ValidationMessageFor(model => model.AccountType, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="form-group col-md-4">
+                                    @Html.LabelFor(model => model.AccountDesignation)
+                                    @Html.DropDownListFor(model => model.AccountDesignation, @Model.ListOfAccountDesignation, new { @class = "form-control", id = "ddAccountDesignation" })
+                                    @Html.ValidationMessageFor(model => model.AccountDesignation, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="form-group col-md-4">
+                                    @Html.LabelFor(model => model.Currency)
+                                    @Html.DropDownListFor(model => model.Currency, @Model.ListOfCurrency, new { @class = "form-control", id = "ddCurrency" })
+                                    @Html.ValidationMessageFor(model => model.Currency, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-md-4">
+                                    @Html.LabelFor(model => model.Channels)
+                                    @Html.DropDownListFor(model => model.Channels, @Model.ListOfChannels, new { @class = "form-control", id = "ddChannels" })
+                                    @Html.ValidationMessageFor(model => model.Channels, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="form-group col-md-4">
+                                    @Html.LabelFor(model => model.TransactionTypeCode)
+                                    @Html.TextBoxFor(model => model.TransactionTypeCode, new { @class = "form-control", id = "txtTransactionTypeCode" })
+                                    @Html.ValidationMessageFor(model => model.TransactionTypeCode, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="form-group col-md-4">
+                                    @Html.LabelFor(model => model.PepDesignatedAccount)
+                                    <select id="txtPepDesignatedAccount" class="form-control">
+                                        <option name="true" value="true">True</option>
+                                        <option name="false" value="false">False</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-md-4">
+                                    @Html.LabelFor(model => model.CypherSecurityLevyExempt)
+                                    <select id="txtCypherSecurityLevyExempt" class="form-control">
+                                        <option name="true" value="true">True</option>
+                                        <option name="false" value="false">False</option>
+                                    </select>
+                                </div>
+                                <div class="form-group col-md-4">
+                                    @Html.LabelFor(model => model.StampDutyExempt)
+                                    <select id="txtStampDutyExempt" class="form-control">
+                                        <option name="true" value="true">True</option>
+                                        <option name="false" value="false">False</option>
+                                    </select>
+                                </div>
+                                <div class="form-group col-md-4">
+                                    @Html.LabelFor(model => model.AccountClass)
+                                    @Html.DropDownListFor(model => model.AccountClass, Model.ListOfAccountClass, new { @class = "form-control", id = "ddAccountClass" })
+                                    @Html.ValidationMessageFor(model => model.AccountClass, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-md-4">
+                                    @Html.LabelFor(model => model.AdditionalField)
+                                    @Html.TextBoxFor(model => model.AdditionalField, new { @class = "form-control", id = "txtAdditionalField" })
+                                    @Html.ValidationMessageFor(model => model.AdditionalField, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="form-group col-md-4">
+                                    @Html.LabelFor(model => model.Inflow)
+                                    <select id="txtInflow" class="form-control">
+                                        <option name="true" value="true">True</option>
+                                        <option name="false" value="false">False</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group col-md-4">
+                                    @Html.LabelFor(model => model.Emtl)
+                                    <select id="txtEmtl" class="form-control">
+                                        <option name="true" value="true">True</option>
+                                        <option name="false" value="false">False</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-md-4">
+                                    @Html.LabelFor(model => model.TransDate)<br />
+                                    <div>
+                                        @*@Html.EditorFor(model => model.TransDate, new { @class = "form-control", id = "txtTransDate" })*@
+                                        @*@Html.TextBoxFor(model => model.TransDate, new { @class = "form-control", id = "txtTransDate" })
+                                            @Html.ValidationMessageFor(model => model.TransDate, "", new { @class = "text-danger" })*@
+
+                                        <input type="text" id="txtTransDate" />
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button id="btnSave" type="button" class="btn btn-success"> Save</button>
+
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

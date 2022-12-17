@@ -1,0 +1,79 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+
+<style>
+        tr:hover {
+            background-color: #f5f5f5;
+        }
+
+        tr:nth-child(even) {
+            /*        background-color: #f2f2f2;
+    */
+        }
+
+        th {
+            background-color: #202A44;
+            color: white;
+        }
+</style>
+<section class="content">
+    <div class="container-fluid">
+        <h3>Send Data</h3>
+        <div class="row" style="position:relative; left: 580px">
+           
+            <div class="col-md-2">
+                <div>
+                    @using (Html.BeginForm("Try", "NIBBSPortal", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                    {
+
+                        <div>
+                            <input type="submit" value="Send Single Data" class="btn btn-outline-primary" style="position:relative; left: 170px;" />
+                        </div>
+                    }
+                </div>
+
+            </div>
+
+            <div class="col-md-1">
+                @using (Html.BeginForm("SendBulkData", "NIBBSPortal", FormMethod.Post))
+                {
+                    <input type="submit" value="Send Bulk Data" class="btn btn-outline-danger" style="position:relative; left: 60px;" />
+                    <p class="text-success">@ViewBag.Message</p>
+                }
+
+            </div>
+            <div class="col-md-2">
+
+                @using (Html.BeginForm("CheckExisting", "NIBBSPortal", FormMethod.Post))
+                {
+                    <input type="submit" value="Check Existing" class="btn btn-outline-success" style="position:relative; left: 100px" />
+                    <p class="text-success">@ViewBag.Message</p>
+                }
+            </div>
+            <div class="col-md-2">
+                @using (Html.BeginForm("CheckExistingList", "NIBBSPortal", FormMethod.Post))
+                {
+                    <input type="submit" value="Check Existing List" class="btn btn-outline-success" style="position:relative; left: 100px" />
+                    <p class="text-success">@ViewBag.Message</p>
+                }
+
+            </div>
+        </div>
+
+
+        <div class="row" style="overflow:scroll; height:600px;">
+            <div class="col-md-12">
+                <div id="divLoadExceptionDetails">
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+
+

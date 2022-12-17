@@ -1,0 +1,79 @@
+﻿
+@{
+    ViewBag.Title = "SendSingleData";
+}
+
+
+<div class="card" style="margin: auto; width: 50%; border: 1px solid #69a6ce; padding: 10px; ">
+    <div class="card-body">
+        <div>
+            <h4>Send Data</h4>
+            @*@Html.ActionLink("Send Data", "", "")*@
+        </div>
+
+    </div>
+
+    <div class="" style="position:relative; right: 155px;">
+        <div>
+            @using (Html.BeginForm("SendSingleData", "NIBBSPortal", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+
+                <div>
+                    <input type="submit" value="Send" class="btn btn-outline-primary" style="position:relative; left: 170px;" />
+                </div>
+                if (ViewBag.Message != null)
+                {
+                    <script type="text/javascript">
+            window.onload = function () {
+                alert("@ViewBag.Message");
+            };
+                    </script>
+                }
+            }
+            
+            
+
+
+        </div>
+
+    </div>
+    <div class="card-footer ">
+        <hr>
+        <div class="stats">
+            @*Reporting Date:*@
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+@section scripts{
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script>
+        $(document).ready(function () {
+            $("#btnLoad").click(function () {
+                BulkLoad();
+            });
+
+        });
+
+        function BulkLoad() {
+            $.ajax({
+                url: 'ThirdImport/Index',
+                type: 'POST',
+                dataType: 'json',
+                contentType: 'application/json',
+                success: function (data, status) {
+                }
+            });
+
+        }
+        
+
+    </script>
+    }

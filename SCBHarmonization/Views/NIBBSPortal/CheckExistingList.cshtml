@@ -1,0 +1,73 @@
+﻿
+@{
+    ViewBag.Title = "CheckExistingList";
+}
+
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script type="text/javascript">
+    $(function () {
+        GetExistingListResult();
+    });
+    function GetExistingListResult() {
+        $.ajax({
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            type: 'Get',
+            url: "/NIBBSPortal/GetExistingListResult",
+            success: function (data) {
+                $("#trDiv").html('');
+                var tdContent = '';
+                for (var i = 0; i < data.length; i++) {
+                    tdContent += '<tr><td>' + data[i].Status +
+                        '</td><td>' + data[i].Message +
+                        '</td>' + '<td>' + data[i].Description +
+                        '</td>' + '<td>' + data[i].Exists +
+                        '</td>' + '<td>' + data[i].TransactionId +
+                        '</td>' + '<td>' + data[i].SendDate +
+                        '</td>' + '<td></td></tr>'; 
+                }
+                $("#trDiv").append(tdContent);
+                console.log(data);
+            },
+            error: function () {
+                alert("Error!")
+            }
+        });
+    }
+
+
+</script>
+
+<br />
+
+<div class="col-xl-12 col-md-12 mb-12">
+    <div class="card border-left-primary shadow h-100 py-2">
+        <div class="card-body">
+            <div class="row no-gutters align-items-center">
+                <div class="col mr-2">
+                    <div class="form-group col-md-6">
+                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Check Existing Responses</div>
+                    </div>
+
+                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th>Status</th>
+                                <th>Message</th>
+                                <th>Description</th>
+                                <th>Exists</th>
+                                <th>TransactionId</th>
+                                <th>Date</th>
+                            </tr>
+                        </thead>
+                        <tbody id="trDiv">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+

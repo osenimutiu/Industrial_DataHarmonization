@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="d40d7559d51c429bbf5f83bb16a2fd45" Name="Diagram1" ZoomLevel="62">
+        <EntityTypeShape EntityType="SCBDBModel.tbl_AccountClass" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SCBDBModel.tbl_AccountDesignation" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SCBDBModel.tbl_AccountType" Width="1.5" PointX="0.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SCBDBModel.tbl_Channel" Width="1.5" PointX="2.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SCBDBModel.tbl_Currency" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SCBDBModel.tbl_DestInstType" Width="1.5" PointX="0.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SCBDBModel.tbl_PaymentTypes" Width="1.5" PointX="10.75" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SCBDBModel.tbl_SrcInsType" Width="1.5" PointX="12.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SCBDBModel.tbl_Status" Width="1.5" PointX="12.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SCBDBModel.tbl_TransactionCount" Width="1.5" PointX="12.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SCBDBModel.TblTransactionType" Width="1.5" PointX="12.75" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SCBDBModel.Credential" Width="1.5" PointX="0.75" PointY="14.75" />
+        <EntityTypeShape EntityType="SCBDBModel.tbl_Dashboad" Width="1.5" PointX="5.75" PointY="3.75" />
+        <EntityTypeShape EntityType="SCBDBModel.tbl_GetLoadedData" Width="1.5" PointX="9.75" PointY="0.75" />
+        <EntityTypeShape EntityType="SCBDBModel.tbl_HarmonizationRetrieve" Width="1.5" PointX="9.75" PointY="11.75" />
+        <EntityTypeShape EntityType="SCBDBModel.tbl_Harmortization" Width="1.5" PointX="11.75" PointY="12.75" />
+        <EntityTypeShape EntityType="SCBDBModel.TransactionStatus" Width="1.5" PointX="0.75" PointY="9.75" />
+        <EntityTypeShape EntityType="SCBDBModel.StatusesLastFive" Width="1.5" PointX="3.375" PointY="14.75" />
+        <EntityTypeShape EntityType="SCBDBModel.tbl_ResponseSummary" Width="1.5" PointX="15.375" PointY="0.75" />
+        <EntityTypeShape EntityType="SCBDBModel.tbl_TopFive_ResponseSummary" Width="1.5" PointX="15.375" PointY="3.75" />
+        <EntityTypeShape EntityType="SCBDBModel.TransactionFailStatu" Width="1.5" PointX="15.375" PointY="6.75" />
+        <EntityTypeShape EntityType="SCBDBModel.TransactionSuccessStatu" Width="1.5" PointX="15.375" PointY="9.75" />
+        <EntityTypeShape EntityType="SCBDBModel.tbl_Exception" Width="1.5" PointX="6.375" PointY="6.75" />
+        <EntityTypeShape EntityType="SCBDBModel.tbl_Exceptionc" Width="1.5" PointX="16.375" PointY="12.75" />
+        <EntityTypeShape EntityType="SCBDBModel.tbl_DataRetrieve" Width="1.5" PointX="3.375" PointY="6.75" />
+        <EntityTypeShape EntityType="SCBDBModel.SaveLastLoadedData" Width="1.5" PointX="0.75" PointY="17.75" />
+        <EntityTypeShape EntityType="SCBDBModel.ExceptionLogger" Width="1.5" PointX="17.375" PointY="0.75" />
+        <EntityTypeShape EntityType="SCBDBModel.tbl_Exceptionb" Width="1.5" PointX="5.375" PointY="14.75" />
+        <EntityTypeShape EntityType="SCBDBModel.tbl_PreHarmonization" Width="1.5" PointX="17.375" PointY="4.75" />
+        <EntityTypeShape EntityType="SCBDBModel.ELMAH_Error" Width="1.5" PointX="18.375" PointY="12.75" />
+        <EntityTypeShape EntityType="SCBDBModel.tbl_SampleData" Width="1.5" PointX="18.375" PointY="16.75" />
+        <EntityTypeShape EntityType="SCBDBModel.LoadingGuidLine" Width="1.5" PointX="19.375" PointY="0.75" />
+        <EntityTypeShape EntityType="SCBDBModel.Tbl_BankStaff" Width="1.5" PointX="19.75" PointY="6.75" />
+        <EntityTypeShape EntityType="SCBDBModel.Tbl_Users" Width="1.5" PointX="0.75" PointY="20.75" />
+        <EntityTypeShape EntityType="SCBDBModel.Tbl_CheckExisting" Width="1.5" PointX="7.375" PointY="19.75" />
+        <EntityTypeShape EntityType="SCBDBModel.Tbl_SendData" Width="1.5" PointX="19.375" PointY="3.75" />
+        <EntityTypeShape EntityType="SCBDBModel.Tbl_Credential" Width="1.5" PointX="9.375" PointY="20.75" />
+        <EntityTypeShape EntityType="SCBDBModel.tbl_PreHarmonization_Batch" Width="1.5" PointX="20.375" PointY="10.75" />
+        <EntityTypeShape EntityType="SCBDBModel.TBL_AUDIT" Width="1.5" PointX="11.375" PointY="20.75" />
+        <EntityTypeShape EntityType="SCBDBModel.tbl_RawHarmonizationDump" Width="1.5" PointX="22.375" PointY="9.75" />
+        <EntityTypeShape EntityType="SCBDBModel.tbl_RawHarmonizationDumpAlt" Width="1.5" PointX="22.375" PointY="17.75" />
+        <EntityTypeShape EntityType="SCBDBModel.tbl_PreHarmonization_EbbsChecker" Width="1.5" PointX="13.75" PointY="20.75" />
+        <EntityTypeShape EntityType="SCBDBModel.tbl_PreHarmonization_EbbsMaker" Width="1.5" PointX="15.75" PointY="20.75" />
+        <EntityTypeShape EntityType="SCBDBModel.tbl_PreHarmonization_ForEbbs" Width="1.5" PointX="22.75" PointY="0.75" />
+        <EntityTypeShape EntityType="SCBDBModel.tbl_PreHarmonization_ForOpal" Width="1.5" PointX="3.75" PointY="22.75" />
+        <EntityTypeShape EntityType="SCBDBModel.tbl_PreHarmonization_OpalChecker" Width="1.5" PointX="0.75" PointY="23.75" />
+        <EntityTypeShape EntityType="SCBDBModel.tbl_PreHarmonization_OpalMaker" Width="1.5" PointX="5.75" PointY="23.75" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -1,0 +1,20 @@
+﻿@media (min-width: 768px) {
+    .sidebar-mini.sidebar-collapse .main-header .logo {
+        width: 230px;
+        z-index: 1001;
+        position: relative;
+        color: white;
+    }
+}
+
+@media (min-width: 768px) {
+    .sidebar-mini.sidebar-collapse .main-header .logo > .logo-mini {
+        display: none;
+    }
+}
+
+@media (min-width: 768px) {
+    .sidebar-mini.sidebar-collapse .main-header .logo > .logo-lg {
+        display: block;
+    }
+}

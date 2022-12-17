@@ -1,0 +1,133 @@
+﻿@using SCBHarmonization.Models
+@model LoginViewModel
+@*@model SCBHarmonization.ViewModels.LoginVM*@
+@{ Layout = null; }
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Data Harmonization | Log in</title>
+
+    <!-- Google Font: Source Sans Pro -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="~/FrontEnd/plugins/fontawesome-free/css/all.min.css">
+    <!-- icheck bootstrap -->
+    <link rel="stylesheet" href="~/FrontEnd/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="~/FrontEnd/dist/css/adminlte.min.css">
+</head>
+<body class="hold-transition login-page" style="background-image: url('../../Content/img/background_15.jpg'); ">
+    <div class="login-box">
+        <div class="login-logo">
+            <a href="#"><h1 style="color:white"><b>Data </b> Harmonization</h1></a>
+        </div>
+
+        <!-- /.login-logo -->
+        <div class="card">
+            <div class="card-body login-card-body">
+                <p class="login-box-msg">Sign in to start your session</p>
+
+                <div class="user">
+                    @using (Html.BeginForm("Login", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                    {
+                        @Html.AntiForgeryToken()
+
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        <div class="form-group">
+                            @Html.TextBoxFor(m => m.UserName, new { @class = "form-control form-control-user", @placeholder = "Enter Your PSID" })
+                            @Html.ValidationMessageFor(m => m.UserName, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="form-group">
+                            @Html.PasswordFor(m => m.Password, new { @class = "form-control form-control-user" })
+                            @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+
+                        </div>
+                        <div class="form-group">
+
+                            <p style="color: red;"> @ViewBag.InvalidCredentials</p>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="custom-control small">
+                                @Html.CheckBoxFor(m => m.RememberMe)
+                                <label class="control-label" for="customCheck">
+
+                                    @Html.LabelFor(m => m.RememberMe)
+                                </label>
+                            </div>
+                        </div>
+                        <input type="submit" value="Log in" class="btn btn-danger btn-user btn-block" />}
+                </div>
+
+
+                @*<div class="social-auth-links text-center mb-3">
+                      <p>- OR -</p>
+                      <a href="#" class="btn btn-block btn-primary">
+                        <i class="fab fa-facebook mr-2"></i> Sign in using Facebook
+                      </a>
+                      <a href="#" class="btn btn-block btn-danger">
+                        <i class="fab fa-google-plus mr-2"></i> Sign in using Google+
+                      </a>
+                    </div>*@
+                <!-- /.social-auth-links -->
+
+                <p class="mb-1">
+                    <a href="~/Account/ForgotPassword">I forgot my password</a>
+                </p>
+                @*<p class="mb-0">
+                      <a href="register.html" class="text-center">Register a new membership</a>
+                    </p>*@
+            </div>
+            <!-- /.login-card-body -->
+        </div>
+    </div>
+    <!-- /.login-box -->
+    <!-- jQuery -->
+    <script src="~/FrontEnd/plugins/jquery/jquery.min.js"></script>
+    <!-- Bootstrap 4 -->
+    <script src="~/FrontEnd/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- AdminLTE App -->
+    <script src="~/FrontEnddist/js/adminlte.min.js"></script>
+</body>
+</html>
+
+
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script type="text/javascript">
+    function checkLogin() {
+        var data = JSON.stringify({
+            email: $("#emailUser").val(),
+            password: $("#passwordUser").val()
+        });
+        return $.ajax({
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            type: 'POST',
+            url: "/Account/Login",
+            data: data,
+            success: function (result) {
+                if (result == true) {
+                    window.location.href = "/Home/Index";
+
+                }
+                else {
+                    alert("Invalid Username or Password!");
+                    window.location.href = "/Account/Login";
+
+                }
+            },
+            error: function () {
+                alert("Error!")
+            }
+        });
+    }
+</script>
+
+
+
+

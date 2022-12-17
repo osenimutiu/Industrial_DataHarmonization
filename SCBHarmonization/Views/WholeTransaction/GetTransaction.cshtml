@@ -1,0 +1,458 @@
+﻿@model PagedList.IPagedList<SCBHarmonization.ViewModels.PreHarmonizationViewModel>
+@using PagedList.Mvc;
+
+@{
+    ViewBag.Title = "GetTransaction";
+}
+
+
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script type="text/javascript">
+    //(function ($) {
+    //    GetLastTransDate();
+    //})(jQuery);
+    $(function () {
+        GetLastTransDate();
+        DisableSent();
+        $("#loading").hide();
+        $("#responseloading").hide();
+    });
+
+
+    
+
+    function GetLastTransDate() {
+        $.ajax({
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            type: 'Get',
+            url: "/WholeTransaction/GetLastTransDate",
+            success: function (data) {
+                $("#txtTextArea").html('');
+                var tdContent = '';
+                for (var i = 0; i < data.length; i++) {
+                    tdContent += '<option value="' + data[i].Id + '">' + data[i].TransDate + '</option>';
+                }
+                $("#txtTextArea").append(tdContent);
+                $("#txtTextArea").hide();
+                GetBodyValue();
+            },
+            error: function () {
+                alert("Error!")
+            }
+        });
+    }
+
+    function GetBodyValue() {
+        var textAreaValue = $("#txtTextArea option:selected").text();
+        $("#txtTransactionDate").text(textAreaValue);
+    }
+    function sendTransaction(id) {
+        var Id = new Object();
+        Id.Id = id
+        var data = JSON.stringify({
+            Id: Id
+        });
+        return $.ajax({
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            type: 'POST',
+            //url: "/NIBBSPortal/SendIndTransaction",
+            //url: "/WholeTransaction/GeneralSendSingle",
+            url: "/WholeTransaction/SendSingleForEbbsOpal",
+            data: data,
+            success: function (result) {
+                alert(result);
+                location.reload(true);
+            },
+            error: function () {
+                alert("Error!")
+            }
+        });
+    }
+    
+    function DisableSent() {
+        //$('table tr').each(function () {
+        //    if ($(this).find('.total').html() == 0.00) {
+        //        $(this).find('.settle-button').prop('disabled', true);
+        //    }
+        //    else {
+        //        $(this).find('.settle-button').prop('disabled', false);
+        //    }
+        //});
+        debugger;
+        $('#example1').find("tr:gt(0)").each(function () {
+            //if ($(this).find('.status').html() == 'Pending') {
+            //    $(this).find('.btnSend').prop('disabled', true);
+            //}
+            //else {
+            //    $(this).find('.btnSend').prop('disabled', false);
+            //}
+
+            var pStaus = $(this).find("td:eq(1)").text();
+            //alert(pStaus);
+            //var pStaus = $(this).find("td:eq(1)").text();
+            //if(pStaus == )
+            //alert(pStaus);
+            //var pStaus = $(this).find("td:eq(1)");
+            //if ($(this).find("td:eq(1)").text() == 'Pending') {
+            //    $(this).find("td:eq(0)").prop('disabled', true);
+            //}
+
+            //if (pStaus.text('Pending')) {
+            //    //alert('Hello');
+            //} else {
+            //    alert('Hi');
+            //}
+            //console.log(pStaus);
+
+        });
+
+    }
+    function refresh() {
+        window.location.href = '/WholeTransaction/GetTransaction/'
+    }
+
+    function sendBulk() {
+        $("#loading").show();
+        var att = new Object();
+        att.TransId = $("#txtTransId").val();
+        var data = JSON.stringify({
+            transId: att
+        });
+        return $.ajax({
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            type: 'POST',
+            //url: "/WholeTransaction/SendBulkData",
+            //url: "/WholeTransaction/GeneralSendBulkData",
+            url: "/WholeTransaction/SendBulkForEbbsOpal",
+            data: data,
+            success: function (result) {
+                alert(result);
+                $("#loading").hide();
+            },
+            error: function () {
+                alert("Error!")
+                $("#loading").hide();
+            }
+        });
+    }
+
+
+    function DownLoadResponse() {
+        $("#responseloading").show();
+        var att = new Object();
+        att.TransId = $("#txtTransId").val();
+        var data = JSON.stringify({
+            transId: att
+        });
+        return $.ajax({
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            type: 'POST',
+            url: "/WholeTransaction/DownLoadResponse",
+            data: data,
+            success: function (result) {
+                alert(result);
+                $("#responseloading").hide();
+            },
+            error: function () {
+                alert("Error!");
+                $("#responseloading").hide();
+            }
+        });
+    }
+    
+</script>
+
+
+
+<select id="txtTextArea" class="form-control" style="width: 220px;">
+</select>
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-6">
+                <p style="font-size: 20px; font-weight:bold;">Last Uploaded Date: <span id="txtTransactionDate" style="font-size: 25px; font-weight:bold; color: #32a852"></span></p>
+            </div>
+
+            @*<div class="col-md-6">
+                    @using (Html.BeginForm("SendBulkData", "WholeTransaction", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                    {
+
+                        <div>
+                            <input type="submit" value="Send Bulk" class="btn btn-success" style="position:relative; left: 720px;" />
+                        </div>
+                        if (ViewBag.Message != null)
+                        {
+                            <script type="text/javascript">
+                window.onload = function () {
+                    alert("@ViewBag.Message");
+                };
+                            </script>
+                        }
+                    }
+                </div>*@
+            <div class="col-md-3">
+
+            </div>
+
+            <div class="col-md-3">
+                <p>
+                    @using (@Html.BeginForm("GetTransaction", "WholeTransaction", FormMethod.Get, new { @class = "form-horizontal", role = "form" }))
+                    {
+                        @Html.TextBox("search")
+                        <input class="btn btn-success" type="submit" value="search" />
+                        <a class="btn btn-danger" id="btnrefresh" onclick="refresh()">Refresh</a>
+                    }
+                </p>
+            </div>
+
+        </div>
+
+        <div class="col-12">
+            <div class="card">
+
+                <div class="card-header">
+                    <input type="hidden" id="txtTransId" class="form-control" />
+                    <input onclick="sendBulk()" type="submit" value="Send Bulk" class="btn btn-success" />
+                    <button onclick="DownLoadResponse()" class="btn btn-secondary" type="button">Load Response</button>
+                </div>
+              
+                <div id="loading">
+                    <p style="font-size: 80px;">Sending in Progress...</p>
+                </div>
+                <div id="responseloading">
+                    <p style="font-size: 80px;">Response Loading in Progress...</p>
+                </div>
+                @*<h4>@String.Format("{0:n0}", @ViewBag.RecordCount) of @String.Format("{0:n0}", @ViewBag.TotalCount) records</h4>*@
+                <h4>@String.Format("{0:n0}", @ViewBag.RecordCount) of @String.Format("{0:n0}", @ViewBag.TotalCount) @ViewBag.RecordRelated</h4>
+                <div class="card-body" style="overflow:scroll; height:600px;">
+                    <table id="example1" class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th>Send</th>
+                                <th>
+                                    Status
+                                </th>
+                                <th>
+                                    Amount
+                                </th>
+                                <th>
+                                    Vat
+                                </th>
+                                <th>
+                                    Fee
+                                </th>
+                                <th>
+                                    TransID
+                                </th>
+                                <th>
+                                    SrcAcctNo
+                                </th>
+                                <th>
+                                    SrcInstCode
+                                </th>
+                                <th>
+                                    SrcInstBranchCode
+                                </th>
+                                <th>
+                                    SrcInstType
+                                </th>
+                                <th>
+                                    SrcInstUniqueID
+                                </th>
+                                <th>
+                                    DestAcctNo
+                                </th>
+                                <th>
+                                    DestInstCode
+                                </th>
+                                <th>
+                                    DestInstBranchCode
+                                </th>
+                                <th>
+                                    DestInstType
+                                </th>
+                                <th>
+                                    DestInstUniqueID
+                                </th>
+                                <th>
+                                    PaymentType
+                                </th>
+                                <th>
+                                    BankIncome
+                                </th>
+                                <th>
+                                    TransDate
+                                </th>
+                                <th>
+                                    PsspParty
+                                </th>
+                                <th>
+                                    AccountType
+                                </th>
+                                <th>
+                                    AccountClass
+                                </th>
+                                <th>
+                                    AccountDesignation
+                                </th>
+                                <th>
+                                    Currency
+                                </th>
+                                <th>
+                                    Channels
+                                </th>
+                                <th>
+                                    TransactionTypeCode
+                                </th>
+                                <th>
+                                    PepDesignatedAccount
+                                </th>
+                                <th>
+                                    CypherSecurityLevyExempt
+                                </th>
+                                <th>
+                                    StampDutyExempt
+                                </th>
+                                <th>
+                                    AdditionalField
+                                </th>
+                                <th>
+                                    Inflow
+                                </th>
+                                <th>
+                                    Emtl
+                                </th>
+                                <th>
+                                    ReceiverLocation
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        <a onclick="sendTransaction(@item.Id)" class="btn btn-outline-secondary"><i class="fa fa-share-alt"></i> </a>
+
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Status)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Amount)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Vat)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Fee)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.TransID)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.SrcAcctNo)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.SrcInstCode)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.SrcInstBranchCode)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.SrcInstType)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.SrcInstUniqueID)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.DestAcctNo)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.DestInstCode)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.DestInstBranchCode)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.DestInstType)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.DestInstUniqueID)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.PaymentType)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.BankIncome)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.TransDate)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.PsspParty)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.AccountType)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.AccountClass)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.AccountDesignation)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Currency)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Channels)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.TransactionTypeCode)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.PepDesignatedAccount)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.CypherSecurityLevyExempt)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.StampDutyExempt)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.AdditionalField)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Inflow)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Emtl)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.ReceiverLocation)
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                        <tfoot>
+                        </tfoot>
+                    </table>
+                </div>
+                <br />
+                <div id='Paging' style="text-align:center">
+                    Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)
+                    of @Model.PageCount
+
+                    @Html.PagedListPager(Model, page => Url.Action("GetTransaction", new { page }))
+                </div>
+            </div>
+
+
+        </div>
+    </div>

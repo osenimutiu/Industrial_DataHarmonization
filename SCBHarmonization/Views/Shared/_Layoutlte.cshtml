@@ -1,0 +1,344 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Data Harmonization </title>
+
+    <!-- Google Font: Source Sans Pro -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="~/FrontEnd/plugins/fontawesome-free/css/all.min.css">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <!-- Tempusdominus Bootstrap 4 -->
+    <link rel="stylesheet" href="~/FrontEnd/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
+    <!-- iCheck -->
+    <link rel="stylesheet" href="~/FrontEnd/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+    <!-- JQVMap -->
+    <link rel="stylesheet" href="~/FrontEnd/plugins/jqvmap/jqvmap.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="~/FrontEnd/dist/css/adminlte.min.css">
+    <!-- overlayScrollbars -->
+    <link rel="stylesheet" href="~/FrontEnd/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
+    <!-- Daterange picker -->
+    <link rel="stylesheet" href="~/FrontEnd/plugins/daterangepicker/daterangepicker.css">
+    <!-- summernote -->
+    <link rel="stylesheet" href="~/FrontEnd/plugins/summernote/summernote-bs4.min.css">
+    <link href="~/Content/alertifyjs/alertify.min.css" rel="stylesheet" />
+    <link href="~/Content/alertifyjs/themes/default.min.css" rel="stylesheet" />
+    @*<link href="~/Content/adminstyle.css" rel="stylesheet" />*@
+</head>
+<body class="hold-transition sidebar-mini layout-fixed">
+    <div class="wrapper">
+
+        <!-- Preloader -->
+        <div class="preloader flex-column justify-content-center align-items-center">
+            <img class="animation__shake" src="~/FrontEnd/dist/img/standard-chartered-logo-5.png" alt="AdminLTELogo" height="60" width="60">
+        </div>
+
+        <!-- Navbar -->
+        <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+            <!-- Left navbar links -->
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+                </li>
+                @*<li class="nav-item d-none d-sm-inline-block">
+                        <a href="index3.html" class="nav-link">Home</a>
+                    </li>*@
+                <li class="nav-item d-none d-sm-inline-block">
+                    @*<button type="submit" class="btn btn-primary btn-outline-danger float-right">
+                                            <i class="fas fa-map-pin"></i>
+                                            @Html.ActionLink("PING", "Ping", "Credential", null, new { id = "OT", style = "color: white" })
+                                            @if (ViewBag.Message != null)
+                                            {
+                                                <script type="text/javascript">
+                                                    window.onload = function () {
+                                                        alert(ViewBag.Message);
+                                                    };
+                                                </script>
+                        }
+                                        </button>*@
+
+
+                </li>
+            </ul>
+
+            <!-- Right navbar links -->
+            <ul class="navbar-nav ml-auto">
+                <!-- Navbar Search -->
+                <li class="nav-item">
+                    <button type="submit" class="btn btn-danger btn-outline-danger float-right">
+                        <i class="fas fa-map-pin"></i>
+                        @*@Html.ActionLink("ResetPassword", "ForgotPassword", "Account", null, new { id = "OT", style = "color: white" })*@
+                        @*@Html.ActionLink("ChangePassword", "ChangePassword", "Manage", new { style = "color: white" })*@
+                        <a href="@Url.Action("ChangePassword", "Manage")" style="color: white">
+                            Change Password
+                        </a>
+                    </button>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" data-widget="navbar-search" href="#" role="button">
+                        <i class="fas fa-search"></i>
+                    </a>
+                    <div class="navbar-search-block">
+                        <form class="form-inline">
+                            <div class="input-group input-group-sm">
+                                <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
+                                <div class="input-group-append">
+                                    <button class="btn btn-navbar" type="submit">
+                                        <i class="fas fa-search"></i>
+                                    </button>
+                                    <button class="btn btn-navbar" type="button" data-widget="navbar-search">
+                                        <i class="fas fa-times"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </li>
+
+                <!-- Messages Dropdown Menu -->
+                <!-- Notifications Dropdown Menu -->
+
+                <li class="nav-item">
+                    <a class="nav-link" data-widget="fullscreen" href="#" role="button">
+                        <i class="fas fa-expand-arrows-alt"></i>
+                    </a>
+                </li>
+                @*<li class="nav-item">
+                        <a class="nav-link" data-widget="control-sidebar" data-controlsidebar-slide="true" href="#" role="button">
+                            <i class="fas fa-th-large"></i>
+                        </a>
+                    </li>*@
+            </ul>
+        </nav>
+        <!-- /.navbar -->
+        <!-- Main Sidebar Container -->
+        <aside class="main-sidebar sidebar-dark-primary elevation-4">
+            <!-- Brand Logo -->
+            <a href="#" class="brand-link">
+                <img src="~/FrontEnd/dist/img/standard-chartered-logo-5.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+                <span class="brand-text font-weight-light">Data Harmonization</span>
+            </a>
+
+            <!-- Sidebar -->
+            <div class="sidebar">
+                <!-- Sidebar user panel (optional) -->
+                <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+                    <div class="image">
+                        <img src="~/FrontEnd/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+                    </div>
+                    <div class="info">
+                        <a href="#" class="d-block">
+                            @Html.Partial("_LoginPartial")
+                        </a>
+                    </div>
+                </div>
+
+                <!-- SidebarSearch Form -->
+                <div class="form-inline">
+                    @*<div class="input-group" data-widget="sidebar-search">
+                            <input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search">
+                            <div class="input-group-append">
+                                <button class="btn btn-sidebar">
+                                    <i class="fas fa-search fa-fw"></i>
+                                </button>
+                            </div>
+                        </div>*@
+                </div>
+
+                <!-- Sidebar Menu -->
+                <nav class="mt-2">
+                    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                        <!-- Add icons to the links using the .nav-icon class
+    with font-awesome or any other icon font library -->
+                        <li class="nav-item menu-open">
+                            <a href="~/Home/Index" class="nav-link active">
+                                <i class="nav-icon fas fa-tachometer-alt"></i>
+                                <p>
+                                    Dashboard
+                                </p>
+                            </a>
+                        </li>
+                        @*<li class="nav-item">
+            <a href="@Url.Action("Index", "Credential")" class="nav-link">
+                <i class="nav-icon fas fa-th"></i>
+                <p>
+                    Reset Credentials
+                </p>
+            </a>
+        </li>*@
+
+
+                        @*<li class="nav-item">
+            <a href="@Url.Action("Index", "ThirdImport")" class="nav-link">
+                <i class="nav-icon fas fa-copy"></i>
+                <p>
+                    Load Data
+                </p>
+            </a>
+        </li>*@
+
+                        @if (User.Identity.IsAuthenticated && User.IsInRole("System Admin") == false)
+                        {
+                            <li class="dropdown">
+
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    <i class="nav-icon far fa-image"></i>
+                                    Main <span class="caret"></span>
+                                </a>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li><a href="@Url.Action("Index", "CSVUpload")" class="nav-link">Load Data</a></li>
+                                    <li><a href="@Url.Action("GetTransaction", "WholeTransaction")" class="nav-link">Loaded Data</a></li>
+                                    <li><a href="@Url.Action("UploadFile", "CSVUpload")" class="nav-link">Load Single File</a></li>
+                                    <li><a href="@Url.Action("GetTransactionType", "NIBBSPortal")" class="nav-link">Transaction Types</a></li>
+                                    <li><a href="@Url.Action("Index", "EX")" class="nav-link">Exception And Fixes</a></li>
+                                    <li><a href="@Url.Action("Index", "ErrorLog")" class="nav-link">Error Log</a></li>
+                                </ul>
+                            </li>
+                        }
+
+                        @if (User.Identity.IsAuthenticated && User.IsInRole("System Admin") == false)
+                        {
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    <i class="nav-icon fas fa-calendar-alt"></i>
+                                    Others <span class="caret"></span>
+                                </a>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li><a href="@Url.Action("UploadGuidLines", "ThirdImport")" class="nav-link">Upload GuidLine</a></li>
+                                    <li><a href="@Url.Action("CheckExisting", "NIBBSPortal")" class="nav-link">CheckExisting</a></li>
+                                    <li><a href="@Url.Action("GetTransactionData", "NIBBSPortal")" class="nav-link">Transaction Response</a></li>
+                                    <li><a href="@Url.Action("CheckExistingList", "NIBBSPortal")" class="nav-link">Check-Existing Response</a></li>
+                                    <li><a href="@Url.Action("UnsendData", "NIBBSPortal")" class="nav-link">Update Transaction</a></li>
+                                    <li><a href="@Url.Action("UnsentTransactions", "NIBBSPortal")" class="nav-link">Failed Transaction</a></li>
+                                    <li><a href="@Url.Action("SendFailedTransaction", "NIBBSPortal")" class="nav-link">Resend Transaction</a></li>
+
+                                </ul>
+                            </li>
+                        }
+
+
+
+                        @if (User.Identity.IsAuthenticated && User.IsInRole("System Admin") == true)
+                        {
+
+                            <li class="dropdown">
+
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    <i class="nav-icon fas fa-image"></i>
+                                    Admin <span class="caret"></span>
+                                </a>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li><a href="@Url.Action("Credential", "NIBBSPortal")" class="nav-link">Save Credential</a></li>
+                                    <li><a href="@Url.Action("Index", "SFTPTransfer")" class="nav-link">Download Files</a></li>
+                                    <li><a href="@Url.Action("DownloadFileWithDate", "SFTPTransfer")" class="nav-link">Download Files with Date</a></li>
+                                    <li><a href="@Url.Action("Register", "Account")" class="nav-link">User Profile</a></li>
+                                    <li><a href="@Url.Action("ShowAllUserDetails", "User")" class="nav-link">Users</a></li>
+                                    <li><a href="@Url.Action("Audit", "Transaction")" class="nav-link">Audit Log</a></li>
+
+                                </ul>
+                            </li>
+                        }
+
+
+                    </ul>
+                </nav>
+                <!-- /.sidebar-menu -->
+            </div>
+            <!-- /.sidebar -->
+        </aside>
+
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+            <!-- Content Header (Page header) -->
+            <div class="content-header">
+                <div class="container-fluid">
+                    <div class="row mb-2">
+                        <div class="col-sm-6">
+                            @*<h1 class="m-0">Dashboard</h1>*@
+                        </div><!-- /.col -->
+                        <div class="col-sm-6">
+                            <ol class="breadcrumb float-sm-right">
+                                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                                <li class="breadcrumb-item active">Dashboard v1</li>
+                            </ol>
+                        </div><!-- /.col -->
+                    </div><!-- /.row -->
+                </div><!-- /.container-fluid -->
+            </div>
+            <!-- /.content-header -->
+            <!-- Main content -->
+            <section class="content">
+                <div class="container-fluid">
+
+                    @RenderBody()
+
+                </div><!-- /.container-fluid -->
+            </section>
+            <!-- /.content -->
+        </div>
+        <!-- /.content-wrapper -->
+        <footer class="main-footer">
+            <strong>Copyright &copy; 2021 <a href="#">FinTrak Software</a>.</strong>
+            All rights reserved.
+            <div class="float-right d-none d-sm-inline-block">
+                <b>Version</b> 1.0.0
+            </div>
+        </footer>
+
+        <!-- Control Sidebar -->
+        <aside class="control-sidebar control-sidebar-dark">
+            <!-- Control sidebar content goes here -->
+        </aside>
+        <!-- /.control-sidebar -->
+    </div>
+    <!-- ./wrapper -->
+    <!-- jQuery -->
+    <script src="~/FrontEnd/plugins/jquery/jquery.min.js"></script>
+    <!-- jQuery UI 1.11.4 -->
+    <script src="~/FrontEnd/plugins/jquery-ui/jquery-ui.min.js"></script>
+    <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+    <script>
+        $.widget.bridge('uibutton', $.ui.button)
+    </script>
+    <!-- Bootstrap 4 -->
+    <script src="~/FrontEnd/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- ChartJS -->
+    <script src="~/FrontEnd/plugins/chart.js/Chart.min.js"></script>
+    <!-- Sparkline -->
+    <script src="~/FrontEnd/plugins/sparklines/sparkline.js"></script>
+    <!-- JQVMap -->
+    <script src="~/FrontEnd/plugins/jqvmap/jquery.vmap.min.js"></script>
+    <script src="~/FrontEnd/plugins/jqvmap/maps/jquery.vmap.usa.js"></script>
+    <!-- jQuery Knob Chart -->
+    <script src="~/FrontEnd/plugins/jquery-knob/jquery.knob.min.js"></script>
+    <!-- daterangepicker -->
+    <script src="~/FrontEnd/plugins/moment/moment.min.js"></script>
+    <script src="~/FrontEnd/plugins/daterangepicker/daterangepicker.js"></script>
+    <!-- Tempusdominus Bootstrap 4 -->
+    <script src="~/FrontEnd/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
+    <!-- Summernote -->
+    <script src="~/FrontEnd/plugins/summernote/summernote-bs4.min.js"></script>
+    <!-- overlayScrollbars -->
+    <script src="~/FrontEnd/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+    <!-- AdminLTE App -->
+    <script src="~/FrontEnd/dist/js/adminlte.js"></script>
+    <!-- AdminLTE for demo purposes -->
+    @*<script src="~/FrontEnd/dist/js/demo.js"></script>*@
+    <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
+    <script src="~/FrontEnd/dist/js/pages/dashboard.js"></script>
+    <script src="~/Scripts/alertify.min.js"></script>
+    @RenderSection("scripts", required: false)
+
+</body>
+</html>
+
+
+
+
+
+

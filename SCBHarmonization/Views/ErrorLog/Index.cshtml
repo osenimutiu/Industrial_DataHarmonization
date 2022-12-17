@@ -1,0 +1,104 @@
+﻿@model IEnumerable<SCBHarmonization.Models.ExceptionLogger>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Error Logs</h2>
+<style>
+    tr:hover {
+        background-color: #f5f5f5;
+    }
+
+    tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+
+    th {
+        background-color: #202A44;
+        color: white;
+    }
+</style>
+
+<table class="table">
+    <thead class="">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.InnerException)
+            </th>
+            @*<th>
+                @Html.DisplayNameFor(model => model.ExceptionMessageWithSolution)
+            </th>*@
+            <th>
+                @Html.DisplayNameFor(model => model.ControllerName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ActionName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LogTime)
+            </th>
+            <th>
+                Action
+            </th>
+        </tr>
+    </thead>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.InnerException)
+            </td>
+            @*<td>
+                @Html.DisplayFor(modelItem => item.ExceptionMessageWithSolution)
+            </td>*@
+            <td>
+                @Html.DisplayFor(modelItem => item.ControllerName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ActionName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LogTime)
+            </td>
+            <td>
+                <a onclick="fixError(@item.Id)" class="btn btn-info"><i class="fa fa-wrench"></i></a>
+            </td>
+        </tr>
+    }
+
+</table>
+<h4>Total: @Model.Count()</h4>
+
+@section scripts{
+    <script>
+
+        function fixError(id) {
+            var successMessage = '@TempData["SuccessMessage"]'
+            alertify.confirm('Data Harmonization','Hope this error is fixed?',function(){
+                window.location.href = '@Url.Action("FixError", "ErrorLog")/' + id;
+                alertify.success(successMessage);
+            }, null);
+
+        }
+
+        //function fixError(id) {
+        //    debugger
+        //    return $.ajax({
+        //        contentType: 'application/json; charset=utf-8',
+        //        dataType: 'json',
+        //        type: 'Get',
+        //        url: "/ErrorLog/FixError",
+        //        data: id,
+        //        success: function (result) {
+        //            alert(result.Message);
+        //        },
+        //        error: function () {
+        //            alert('Error!');
+        //        }
+        //    })
+        //}
+    </script>
+}
+
+

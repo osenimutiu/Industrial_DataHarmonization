@@ -1,0 +1,550 @@
+﻿@model SCBHarmonization.ViewModels.tbl_ExViewModel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layoutlte.cshtml";
+}
+
+<style>
+    tr:hover {
+        background-color: #f5f5f5;
+    }
+
+    tr:nth-child(even) {
+/*        background-color: #f2f2f2;
+*/    }
+
+    th {
+        background-color: #202A44;
+        color: white;
+    }
+</style>
+<section class="content">
+    <div class="container-fluid">
+        <h3>Exceptions</h3>
+        <div class="row" style="position:relative; left: 580px">
+            @*<div class="col-md-3"></div>*@
+
+            <div class="col-md-2">
+                <div>
+                    @using (Html.BeginForm("ExportToExcel", "EX", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                    {
+
+                        <div>
+                            <input type="submit" value="Export to Excel" class="btn btn-outline-primary" style="position:relative; left: 750px;" />
+                        </div>}
+                </div>
+
+            </div>
+
+            <div class="col-md-1">
+                @using (Html.BeginForm("CheckException", "EX", FormMethod.Post))
+                {
+                    <input type="submit" value="Load Exception" class="btn btn-outline-danger" style="position:relative; left: 600px;" />
+                    <p class="text-success">@ViewBag.Message</p>}
+
+            </div>
+            <div class="col-md-2">
+
+                @using (Html.BeginForm("FixException", "EX", FormMethod.Post))
+                {
+                    <input type="submit" value="Fix Exception" class="btn btn-outline-success" style="position:relative; left: 600px" />
+                    <p class="text-success">@ViewBag.Message</p>}
+
+            </div>
+        </div>
+
+
+        <div class="row" style="overflow:scroll; height:600px;">
+            <div class="col-md-12">
+                <div id="divLoadExceptionDetails">
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+<div class="bg-white">
+    @*<div style="margin-top: 60px;">
+            <button type="button" id="something" class="btn btn-outline-primary" onclick="reload()">Refresh</button>
+        </div>*@
+    <!--<div class="row" style="position:relative; left: 600px">-->
+        @*<div class="col-md-3"></div>*@
+
+        <!--<div class="col-md-2">
+            <div>
+                @using (Html.BeginForm("ExportToExcel", "EX", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+
+                    <div>
+                        <input type="submit" value="Export to Excel" class="btn btn-outline-primary" style="position:relative; left: 170px;" />
+                    </div>
+
+                }
+            </div>
+
+        </div>
+
+        <div class="col-md-1">
+            @using (Html.BeginForm("CheckException", "EX", FormMethod.Post))
+            {
+                <input type="submit" value="Check Exception" class="btn btn-outline-danger" style="position:relative; left: 60px;" />
+                <p class="text-success">@ViewBag.Message</p>
+            }
+
+        </div>
+        <div class="col-md-2">
+
+            @using (Html.BeginForm("FixException", "EX", FormMethod.Post))
+            {
+                <input type="submit" value="Fix Exception" class="btn btn-outline-success" style="position:relative; left: 100px" />
+                <p class="text-success">@ViewBag.Message</p>
+            }
+
+        </div>
+    </div>-->
+
+
+    <div id="divAddException" class=" modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content" style="width: 900px; position: relative; left: 0px;">
+                <div class="modal-header bg-danger">
+                    <h5 class="modal-title text-center text-white"> Edit Exception </h5>
+                    <button type="button" class="close" data-dismiss="modal"> &times;</button>
+
+                </div>
+                <div class="modal-body">
+                    <form id="formRoom">
+                        <div class="container">
+                            @Html.HiddenFor(model => model.Id, new { @id = "txtId" })
+                            <div class="row">
+                                <div class="form-group col-md-9">
+                                    @Html.LabelFor(model => model.ExceptionType)
+                                    @Html.TextBoxFor(model => model.ExceptionType, new { @class = "form-control", id = "txtExceptionType", @disabled = "true" })
+                                    @Html.ValidationMessageFor(model => model.ExceptionType, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group  col-md-3">
+                                    @Html.LabelFor(model => model.Amount)
+                                    @Html.TextBoxFor(model => model.Amount, new { @class = "form-control", id = "txtAmount" })
+                                    @Html.ValidationMessageFor(model => model.Amount, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="form-group col-md-3">
+                                    @Html.LabelFor(model => model.Vat)
+                                    @Html.TextBoxFor(model => model.Vat, new { @class = "form-control", id = "txtVat" })
+                                    @Html.ValidationMessageFor(model => model.Vat, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="form-group col-md-3">
+                                    @Html.LabelFor(model => model.Fee)
+                                    @Html.TextBoxFor(model => model.Fee, new { @class = "form-control", id = "txtFee" })
+                                    @Html.ValidationMessageFor(model => model.Fee, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-md-3">
+                                    @Html.LabelFor(model => model.TransID)
+                                    @Html.TextBoxFor(model => model.TransID, new { @class = "form-control", id = "txtTransID" })
+                                    @Html.ValidationMessageFor(model => model.TransID, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="form-group col-md-3">
+                                    @Html.LabelFor(model => model.SrcAcctNo)
+                                    @Html.TextBoxFor(model => model.SrcAcctNo, new { @class = "form-control", id = "txtSrcAcctNo" })
+                                    @Html.ValidationMessageFor(model => model.SrcAcctNo, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="form-group col-md-3">
+                                    @Html.LabelFor(model => model.SrcInstCode)
+                                    @Html.TextBoxFor(model => model.SrcInstCode, new { @class = "form-control", id = "txtSrcInstCode" })
+                                    @Html.ValidationMessageFor(model => model.SrcInstCode, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="form-group  col-md-3">
+                                    @Html.LabelFor(model => model.SrcInstBranchCode)
+                                    @Html.TextBoxFor(model => model.SrcInstBranchCode, new { @class = "form-control", id = "txtSrcInstBranchCode" })
+                                    @Html.ValidationMessageFor(model => model.SrcInstBranchCode, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="form-group col-md-3">
+                                    @Html.LabelFor(model => model.SrcInstType)
+                                    @Html.DropDownListFor(model => model.SrcInstType, @Model.ListOfSrctInstType, new { @class = "form-control", id = "ddSrcInstType" })
+                                    @Html.ValidationMessageFor(model => model.SrcInstType, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="form-group col-md-3">
+                                    @Html.LabelFor(model => model.SrcInstUniqueID)
+                                    @Html.TextBoxFor(model => model.SrcInstUniqueID, new { @class = "form-control", id = "txtSrcInstUniqueID" })
+                                    @Html.ValidationMessageFor(model => model.SrcInstUniqueID, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-md-3">
+                                    @Html.LabelFor(model => model.DestAcctNo)
+                                    @Html.TextBoxFor(model => model.DestAcctNo, new { @class = "form-control", id = "txtDestAcctNo" })
+                                    @Html.ValidationMessageFor(model => model.DestAcctNo, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="form-group col-md-3">
+                                    @Html.LabelFor(model => model.DestInstCode)
+                                    @Html.TextBoxFor(model => model.DestInstCode, new { @class = "form-control", id = "txtDestInstCode" })
+                                    @Html.ValidationMessageFor(model => model.DestInstCode, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="form-group col-md-3">
+                                    @Html.LabelFor(model => model.DestInstBranchCode)
+                                    @Html.TextBoxFor(model => model.DestInstBranchCode, new { @class = "form-control", id = "txtDestInstBranchCode" })
+                                    @Html.ValidationMessageFor(model => model.DestInstBranchCode, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="form-group  col-md-3">
+                                    @Html.LabelFor(model => model.DestInstType)
+                                    @Html.DropDownListFor(model => model.DestInstType, @Model.ListOfDestInstType, new { @class = "form-control", id = "ddDestInstType" })
+                                    @Html.ValidationMessageFor(model => model.DestInstType, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="form-group col-md-3">
+                                    @Html.LabelFor(model => model.DestInstUniqueID)
+                                    @Html.TextBoxFor(model => model.DestInstUniqueID, new { @class = "form-control", id = "txtDestInstUniqueID" })
+                                    @Html.ValidationMessageFor(model => model.DestInstUniqueID, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="form-group col-md-3">
+                                    @Html.LabelFor(model => model.PaymentType)
+                                    @Html.DropDownListFor(model => model.PaymentType, @Model.ListOfPaymentType, new { @class = "form-control", id = "ddPaymentType" })
+                                    @Html.ValidationMessageFor(model => model.PaymentType, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-md-3">
+                                    @Html.LabelFor(model => model.BankIncome)
+                                    @Html.TextBoxFor(model => model.BankIncome, new { @class = "form-control", id = "txtBankIncome" })
+                                    @Html.ValidationMessageFor(model => model.BankIncome, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="form-group col-md-3">
+                                    @Html.LabelFor(model => model.TransDate) <br />
+
+                                    <div style="width:300px;">
+                                        @Html.EditorFor(model => model.TransDate, new { @class = "form-control", id = "txtTransDate" })
+                                        @Html.ValidationMessageFor(model => model.TransDate, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-3">
+                                    @Html.LabelFor(model => model.PsspParty)
+                                    @Html.TextBoxFor(model => model.PsspParty, new { @class = "form-control", id = "txtPsspParty" })
+                                    @Html.ValidationMessageFor(model => model.PsspParty, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="form-group  col-md-3">
+                                    @Html.LabelFor(model => model.AccountType)
+                                    @Html.DropDownListFor(model => model.AccountType, @Model.ListOfAccountType, new { @class = "form-control", id = "ddAccountType" })
+                                    @Html.ValidationMessageFor(model => model.AccountType, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="form-group col-md-3">
+                                    @Html.LabelFor(model => model.AccountDesignation)
+                                    @Html.DropDownListFor(model => model.AccountDesignation, @Model.ListOfAccountDesignation, new { @class = "form-control", id = "ddAccountDesignation" })
+                                    @Html.ValidationMessageFor(model => model.AccountDesignation, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="form-group col-md-3">
+                                    @Html.LabelFor(model => model.Currency)
+                                    @Html.DropDownListFor(model => model.Currency, @Model.ListOfCurrency, new { @class = "form-control", id = "ddCurrency" })
+                                    @Html.ValidationMessageFor(model => model.Currency, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-md-3">
+                                    @Html.LabelFor(model => model.Channels)
+                                    @Html.DropDownListFor(model => model.Channels, @Model.ListOfChannels, new { @class = "form-control", id = "ddChannels" })
+                                    @Html.ValidationMessageFor(model => model.Channels, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="form-group col-md-3">
+                                    @Html.LabelFor(model => model.TransactionTypeCode)
+                                    @Html.TextBoxFor(model => model.TransactionTypeCode, new { @class = "form-control", id = "txtTransactionTypeCode" })
+                                    @Html.ValidationMessageFor(model => model.TransactionTypeCode, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="form-group col-md-3">
+                                    @Html.LabelFor(model => model.PepDesignatedAccount)
+                                    <select id="txtPepDesignatedAccount" class="form-control">
+                                        <option name="true" value="true">True</option>
+                                        <option name="false" value="false">False</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-md-3">
+                                    @Html.LabelFor(model => model.CypherSecurityLevyExempt)
+                                    <select id="txtCypherSecurityLevyExempt" class="form-control">
+                                        <option name="true" value="true">True</option>
+                                        <option name="false" value="false">False</option>
+                                    </select>
+                                </div>
+                                <div class="form-group col-md-3">
+                                    @Html.LabelFor(model => model.StampDutyExempt)
+                                    <select id="txtStampDutyExempt" class="form-control">
+                                        <option name="true" value="true">True</option>
+                                        <option name="false" value="false">False</option>
+                                    </select>
+                                </div>
+                                <div class="form-group col-md-3">
+                                    @Html.LabelFor(model => model.AccountClass)
+                                    @Html.DropDownListFor(model => model.AccountClass, Model.ListOfAccountClass, new { @class = "form-control", id = "ddAccountClass" })
+                                    @Html.ValidationMessageFor(model => model.AccountClass, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="row">
+                                @*<div class="form-group col-md-3">
+                                    @Html.LabelFor(model => model.TenantId)
+                                    @Html.TextBoxFor(model => model.TenantId, new { @class = "form-control", id = "txtTenantId" })
+                                    @Html.ValidationMessageFor(model => model.TenantId, "", new { @class = "text-danger" })
+                                </div>*@
+                                <div class="form-group col-md-3">
+                                    @Html.LabelFor(model => model.AdditionalField)
+                                    @Html.TextBoxFor(model => model.AdditionalField, new { @class = "form-control", id = "txtAdditionalField" })
+                                    @Html.ValidationMessageFor(model => model.AdditionalField, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="form-group col-md-3">
+                                    @Html.LabelFor(model => model.Inflow)
+                                    <select id="txtInflow" class="form-control">
+                                        <option name="true" value="true">True</option>
+                                        <option name="false" value="false">False</option>
+                                    </select>
+                                </div>
+                            </div>-->
+
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button id="btnSave" type="button" class="btn btn-success"> Save</button>
+
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @*<div id="divLoadExceptionDetails">
+
+    </div>*@
+</div>
+@section scripts{
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script>
+        $(document).ready(function () {
+            //alert('Test');
+            LoadExceptionDetails();
+            $("#txtId").val("0");
+            $("#btnSave").click(function () {
+                SaveExceptionData();
+            });
+
+        });
+
+        function reload() {
+            $('#something').click(function () {
+                location.reload();
+            });
+        }
+        function LoadExceptionDetails() {
+            $.ajax({
+                async: true,
+                data: 'GET',
+                dataType: 'HTML',
+                contentType: false,
+                processData: false,
+                url: '/EX/GetAllExceptions',
+                success: function (data) {
+                    $("#divLoadExceptionDetails").html(data);
+                },
+                error: function () {
+                    alert('There is some errors to process your request. Please try again after sometimes');
+                }
+
+            });
+        }
+
+        function SaveExceptionData() {
+            var formData = new FormData;
+            formData.append("Id", $("#txtId").val());
+            formData.append("Amount", $("#txtAmount").val());
+            formData.append("Vat", $("#txtVat").val());
+            formData.append("Fee", $("#txtFee").val());
+            formData.append("TransID", $("#txtTransID").val());
+            formData.append("SrcAcctNo", $("#txtSrcAcctNo").val());
+            formData.append("SrcInstCode", $("#txtSrcInstCode").val());
+            formData.append("SrcInstBranchCode", $("#txtSrcInstBranchCode").val());
+            formData.append("SrcInstType", $("#ddSrcInstType").val());
+            formData.append("SrcInstUniqueID", $("#txtSrcInstUniqueID").val());
+            formData.append("DestAcctNo", $("#txtDestAcctNo").val());
+            formData.append("DestInstCode", $("#txtDestInstCode").val());
+            formData.append("DestInstBranchCode", $("#txtDestInstBranchCode").val());
+            formData.append("DestInstType", $("#ddDestInstType").val());
+            formData.append("DestInstUniqueID", $("#txtDestInstUniqueID").val());
+            formData.append("PaymentType", $("#ddPaymentType").val());
+            formData.append("BankIncome", $("#txtBankIncome").val());
+            formData.append("TransDate", $("#txtTransDate").val());
+            formData.append("PsspParty", $("#txtPsspParty").val());
+            formData.append("AccountType", $("#ddAccountType").val());
+            formData.append("AccountClass", $("#ddAccountClass").val());
+            formData.append("AccountDesignation", $("#ddAccountDesignation").val());
+            formData.append("Currency", $("#ddCurrency").val());
+            formData.append("Channels", $("#ddChannels").val());
+            formData.append("TransactionTypeCode", $("#txtTransactionTypeCode").val());
+            formData.append("PepDesignatedAccount", $("#txtPepDesignatedAccount").val());
+            formData.append("CypherSecurityLevyExempt", $("#txtCypherSecurityLevyExempt").val());
+            formData.append("StampDutyExempt", $("#txtStampDutyExempt").val());
+            formData.append("TenantId", $("#txtTenantId").val());
+            formData.append("ExceptionType", $("#txtExceptionType").val());
+            formData.append("AdditionalField", $("#txtAdditionalField").val());
+            formData.append("Inflow", $("#txtInflow").val());
+
+            $.ajax({
+                async: true,
+                type: 'POST',
+                contentType: false,
+                processData: false,
+                data: formData,
+                success: function (data) {
+                    if (data.success === true) {
+                        alert(data.message);
+                        ResetExceptionInformation();
+                        LoadExceptionDetails();
+                    }
+                },
+
+                error: function () {
+                    alert('There is some errors to process your request. Please try again after sometimes');
+                }
+            });
+        }
+
+        function ResetExceptionInformation() {
+            $("#txtAmount").val('');
+            $("#txtVat").val('');
+            $("#txtFee").val('');
+            $("#txtTransID").val('');
+            $("#txtSrcAcctNo").val('');
+            $("#txtSrcInstCode").val('');
+            $("#txtSrcInstBranchCode").val('');
+            $("#ddSrcInstType").val('1');
+            $("#txtSrcInstUniqueID").val('');
+            $("#txtTransID").val('');
+            $("#txtSrcAcctNo").val('');
+            $("#txtSrcInstCode").val('');
+            $("#txtDestAcctNo").val('');
+            $("#txtDestInstCode").val('');
+            $("#txtDestInstBranchCode").val('');
+            $("#ddDestInstType").val('1');
+            $("#txtDestInstUniqueID").val('');
+            $("#ddPaymentType").val('1');
+            $("#txtBankIncome").val('');
+            $("#txtTransDate").val('');
+            $("#txtPsspParty").val('');
+            $("#ddAccountType").val('1');
+            $("#ddAccountClass").val('1');
+            $("#ddAccountDesignation").val('1');
+            $("#ddCurrency").val('1');
+            $("#ddChannels").val('1');
+            $("#txtTransactionTypeCode").val('');
+            $("#txtDestInstUniqueID").val('');
+            $("#txtPepDesignatedAccount").val('');
+            $("#txtCypherSecurityLevyExempt").val('');
+            $("#txtStampDutyExempt").val('');
+            $("#txtTenantId").val('');
+            $("#txtExceptionType").val('');
+            $("#txtAdditionalField").val('');
+            $("#txtInflow").val('');
+            $("#txtId").val(0);
+            $("#btnSave").text("Save");
+
+        }
+
+        function EditException(Id) {
+            $.ajax({
+                async: true,
+                type: 'GET',
+                dataType: 'JSON',
+                contentType: 'application/json; charset=utf-8',
+                data: { roomId: Id },
+                url: '/EX/EditExceptionDetails',
+                success: function (data) {
+                    $("#txtAmount").val(data.Amount);
+                    $("#txtVat").val(data.Vat);
+                    $("#txtFee").val(data.Fee);
+                    $("#txtTransID").val(data.TransID);
+                    $("#txtSrcAcctNo").val(data.SrcAcctNo);
+                    $("#txtSrcInstCode").val(data.SrcInstCode);
+                    $("#txtSrcInstBranchCode").val(data.SrcInstBranchCode);
+                    $("#ddSrcInstType").val(data.SrcInstType);
+                    $("#txtSrcInstUniqueID").val(data.SrcInstUniqueID);
+                    $("#txtTransID").val(data.TransID);
+                    $("#txtSrcAcctNo").val(data.SrcAcctNo);
+                    $("#txtSrcInstCode").val(data.SrcInstCode);
+                    $("#txtDestAcctNo").val(data.DestAcctNo);
+                    $("#txtDestInstCode").val(data.DestInstCode);
+                    $("#txtDestInstBranchCode").val(data.DestInstBranchCode);
+                    $("#ddDestInstType").val(data.DestInstType);
+                    $("#txtDestInstUniqueID").val(data.DestInstUniqueID);
+                    $("#ddPaymentType").val(data.PaymentType);
+                    $("#txtBankIncome").val(data.BankIncome);
+                    $("#txtTransDate").val(data.TransDate);
+                    $("#txtPsspParty").val(data.PsspParty);
+                    $("#ddAccountType").val(data.AccountType);
+                    $("#ddAccountClass").val(data.AccountClass);
+                    $("#ddAccountDesignation").val(data.AccountDesignation);
+
+                    $("#ddCurrency").val(data.Currency);
+                    $("#ddChannels").val(data.Channels);
+                    $("#txtTransactionTypeCode").val(data.TransactionTypeCode);
+                    $("#txtDestInstUniqueID").val(data.DestInstUniqueID);
+                    $("#txtPepDesignatedAccount").val(data.PepDesignatedAccount);
+                    $("#txtCypherSecurityLevyExempt").val(data.CypherSecurityLevyExempt);
+                    $("#txtStampDutyExempt").val(data.StampDutyExempt);
+                    $("#txtTenantId").val(data.TenantId);
+                    $("#txtExceptionType").val(data.ExceptionType);
+                    $("#txtAdditionalField").val(data.AdditionalField);
+                    $("#txtInflow").val(data.Inflow);
+                    $("#divAddException").modal({ show: true });
+                    // $("#divAddRoom").modal('show');
+                    $("#txtId").val(data.Id);
+                    $("#btnSave").text("Update");
+
+                },
+                error: function () {
+                    alert('There is some problem to process your request.');
+                }
+            });
+        }
+
+        function DeleteException(roomId) {
+            var result = confirm("Are you sure you want to delete?");
+            if (result === false) {
+                return false;
+            }
+            $.ajax({
+                async: true,
+                type: 'GET',
+                dataType: 'JSON',
+                contentType: 'application/json; charset=utf-8',
+                data: { roomId: roomId },
+                url: '/EX/DeleteExceptionDetails',
+                success: function (data) {
+                    if (data.success === true) {
+                        alert(data.message);
+                        LoadExceptionDetails();
+                    }
+                },
+                error: function () {
+                    alert('There is some errors to process your request. Please try again after sometimes');
+                }
+
+            });
+        }
+
+    </script>
+}
+
+
+
+
+

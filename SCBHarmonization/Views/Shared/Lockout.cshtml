@@ -1,0 +1,79 @@
+﻿@model System.Web.Mvc.HandleErrorInfo
+
+@{
+    Layout = null;
+    ViewBag.Title = "Locked Out";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Data Harmonization | Lockscreen</title>
+
+    <!-- Google Font: Source Sans Pro -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="~/FrontEnd/plugins/fontawesome-free/css/all.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="~/FrontEnd/dist/css/adminlte.min.css">
+</head>
+<body class="hold-transition lockscreen">
+    <!-- Automatic element centering -->
+    <div class="lockscreen-wrapper">
+        <div class="lockscreen-logo">
+            <a href="../../index2.html"><b>Data</b>Harmonization</a>
+        </div>
+        <!-- User name -->
+        <div class="lockscreen-name"><h5 class="text-danger">Account Locked out.</h5></div>
+
+        <!-- START LOCK SCREEN ITEM -->
+        <div class="lockscreen-item">
+            <!-- lockscreen image -->
+            <div class="lockscreen-image">
+                <img src="~/FrontEnd/dist/img/user1-128x128.jpg" alt="User Image">
+            </div>
+            <!-- /.lockscreen-image -->
+            <!-- lockscreen credentials (contains the form) -->
+            <form class="lockscreen-credentials">
+                <div class="input-group">
+                    <input type="password" class="form-control" placeholder="">
+
+                    <div class="input-group-append">
+                        <button type="button" class="btn">
+                            <i class="fas fa-arrow-right text-muted"></i>
+                        </button>
+                    </div>
+                </div>
+            </form>
+            <!-- /.lockscreen credentials -->
+
+        </div>
+        <!-- /.lockscreen-item -->
+        <div class="help-block text-center">
+           This account has been locked out, please try again later.
+        </div>
+        <div class="text-center">
+            <a href="login.html">Or sign in as a different user</a>
+        </div>
+        <div class="lockscreen-footer text-center">
+            Copyright &copy; 2021 <b><a href="#" class="text-black">FinTrak Software</a></b><br>
+            All rights reserved
+        </div>
+    </div>
+    <!-- /.center -->
+    <!-- jQuery -->
+    <script src="~/FrontEnd/plugins/jquery/jquery.min.js"></script>
+    <!-- Bootstrap 4 -->
+    <script src="~/FrontEnd/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+
+
+@*<hgroup>
+    <h1 class="text-danger">Locked out.</h1>
+    <h2 class="text-danger">This account has been locked out, please try again later.</h2>
+</hgroup>*@
+
+

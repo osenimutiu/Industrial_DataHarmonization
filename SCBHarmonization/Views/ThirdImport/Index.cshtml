@@ -1,0 +1,157 @@
+﻿
+@{
+    ViewBag.Title = "Data Loading";
+}
+
+
+<div class="card" style="margin: auto; width: 50%; border: 1px solid #69a6ce; padding: 10px; ">
+    <div class="card-body">
+        <div>
+            @Html.ActionLink("Run Upload SSIS", "RunPackage", "ThirdImport")
+            <h2>Load Data</h2>
+            <form method="post" enctype="multipart/form-data">
+                <div class="row">
+                    <div class="col-md-4">
+                        <input name="file" type="file" class="btn btn-outline-danger" required />
+                        @*<input name="submit" type="submit" class="btn btn-outline-danger" value="Load Data" />*@
+                        <button type="submit" id="btnLoad" class="btn btn-outline-danger">Load Data</button>
+                    </div>
+                </div>
+            </form>
+
+
+
+            @if (ViewBag.Message != null)
+            {
+                <script type="text/javascript">
+            window.onload = function () {
+                alert("@ViewBag.Message");
+            };
+                </script>
+            }
+        </div>
+
+    </div>
+
+    <div class="" style="position:relative; right: 155px;">
+        <div>
+            @using (Html.BeginForm("ExportSampleData", "ThirdImport", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+
+                <div>
+                    <input type="hidden" id="txtexId"/>
+                    <input type="submit" value="Export Headers" class="btn btn-outline-primary" style="position:relative; left: 170px;" />
+                    <input type="button" onclick="executePackage()" value="Execute Package" class="btn btn-outline-success" style="position:relative; left: 170px;" />
+                    <input type="button" onclick="executePackageB()" value="Execute Package" class="btn btn-outline-success" style="position:relative; left: 170px;" />
+                </div>
+                <div>
+                </div>
+            }
+        </div>
+
+        </div>
+    <div class="card-footer ">
+        <hr>
+        <div class="stats">
+            @*Reporting Date:*@
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+@section scripts{
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script>
+        $(document).ready(function () {
+            $("#btnLoad").click(function () {
+                BulkLoad();
+            });
+
+        });
+
+        function BulkLoad() {
+            $.ajax({
+                url: 'ThirdImport/Index',
+                type: 'POST',
+                dataType: 'json', //make sure your service is actually returning json here
+                contentType: 'application/json',
+                success: function (data, status) {
+                    //here data is whatever your WebService.asmx/getList returned
+                    //populate your dropdown here with your $.each w/e
+                }
+            });
+
+        }
+
+        //function executePackage() {
+        //    debugger
+        //    var exId = $("#txtexId").val();
+        //    return $.ajax({
+        //        contentType: 'application/json; charset=utf-8',
+        //        dataType: 'json',
+        //        type: 'Post',
+        //        url: "/ThirdImport/ExecutePackage",
+        //        data: { exId: exId },
+        //        success: function (result) {
+        //            alert(result.message)
+        //        },
+        //        error: function () {
+        //            //alert("Error!")
+        //            alert(result.message);
+
+        //        }
+        //    });
+        //}
+
+        function executePackage() {
+            var att = new Object();
+            att.exId = $("#txtexId").val();
+            var data = JSON.stringify({
+                att: att
+            });
+            return $.ajax({
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
+                type: 'POST',
+                url: "/ThirdImport/ExecutePackage",
+                data: data,
+                success: function (result) {
+                    alert(result.message);
+                },
+                error: function () {
+                    //alert("Error!")
+                    alert(result.message);
+                }
+            });
+        }
+
+
+        function executePackageB() {
+            var att = new Object();
+            att.exId = $("#txtexId").val();
+            var data = JSON.stringify({
+                att: att
+            });
+            return $.ajax({
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
+                type: 'POST',
+                url: "/ThirdImport/ExecutePackageB",
+                data: data,
+                success: function (result) {
+                    alert(result);
+                },
+                error: function () {
+                    //alert("Error!")
+                    alert(result);
+                }
+            });
+        }
+    </script>
+}

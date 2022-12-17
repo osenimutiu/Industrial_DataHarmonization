@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<License>
+  <Product>IFRS</Product>
+  <LicenseDate>1/1/2020</LicenseDate>
+  <ExpireDate>12/31/2020</ExpireDate>
+  <CoveredVersion>1.0.0.0</CoveredVersion>
+  <Licensee>DEMO</Licensee>
+  <Signature xmlns="http://www.w3.org/2000/09/xmldsig#">
+    <SignedInfo>
+      <CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315" />
+      <SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1" />
+      <Reference URI="">
+        <Transforms>
+          <Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" />
+        </Transforms>
+        <DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+        <DigestValue>lDEXcBe0B2FUSPO3M2D4V8UnqSc=</DigestValue>
+      </Reference>
+    </SignedInfo>
+    <SignatureValue>H0OgEmjgA7iEYkdSCeABjlZwHZJIhVP9HLSaclxrTCPRhp2C1hkEdz9focgUjeaN5TueVhr3nnOKIsravOfKblfLzjBjvI633R6EVGCAnJNmfb2bCA09HEl7wKydbrAJKJCQ6ofpQ+2hYPMqKiia3Lirf6YkAPfKKeBnnsJ2KD0=</SignatureValue>
+  </Signature>
+</License>

@@ -1,0 +1,35 @@
+﻿
+@model IEnumerable<SCBHarmonization.ViewModels.tbl_TransactionDetailsViewModel>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Action</th>
+            <th>Successful Trans. Count</th>
+            <th>Failed Trans. Count</th>
+            <th>Transaction Date</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    <span id="btnEdit" class="glyphicon glyphicon-trash btn btn-outline-danger" onclick="Delete(@item.Id)"></span>
+
+                </td>
+                <td>
+                    @item.SucTransCount
+                </td>
+                <td>
+                    @item.FailTransCount
+                </td>
+                <td>
+                    @item.TransDate
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+

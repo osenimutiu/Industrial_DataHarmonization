@@ -1,0 +1,76 @@
+﻿
+@{
+    ViewBag.Title = "UploadFile";
+}
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            $("#loading").hide();
+        });
+
+
+        $(document).on("click", "#btnUpload", function () {
+            $("#loading").show();
+            var files = $("#importFile").get(0).files;
+
+            var formData = new FormData();
+            formData.append('importFile', files[0]);
+
+            $.ajax({
+                url: '/CSVUpload/ImportFile',
+                data: formData,
+                type: 'POST',
+                contentType: false,
+                processData: false,
+                success: function (data) {
+                    if (data.Status === 1) {
+                        alert(data.Message);
+                        reload();
+                    } else {
+                        alert("Failed to Import");
+                        reload();
+                    }
+                },
+                error: function () {
+                    alert("Error!");
+                    $("#loading").hide();
+                }
+            });
+        });
+
+
+        function reload() {
+            window.location.reload(true);
+        }
+    </script>
+}<div class="card" style="margin: auto; width: 50%; border: 1px solid #69a6ce; padding: 10px; ">
+    <div class="card-body">
+        <div>
+            <div id="loading">
+                <p>@*<img src="~/Content/img/load-icon.png" />Please Wait...*@</p>
+                <p style="font-size: 80px;">Loading in Progress...</p>
+            </div>
+            <h2>Upload File</h2>
+            <form method="post" enctype="multipart/form-data">
+                <div class="row">
+                    <div class="col-md-4">
+                        <input name="importFile" id="importFile" type="file" class="btn btn-outline-danger" required />
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-md-4">
+                        <button type="button" id="btnUpload" class="btn btn-outline-danger">Load Selected File</button> &nbsp;&nbsp;
+                    </div>
+                </div>
+            </form>
+        </div>
+
+    </div>
+
+
+</div>
+
+<br />
+

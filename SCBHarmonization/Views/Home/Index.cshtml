@@ -1,0 +1,72 @@
+﻿
+
+@model IEnumerable<SCBHarmonization.Models.tbl_TopFive_ResponseSummary>
+@{
+    ViewBag.Title = "Home Page";
+}
+
+<section class="content">
+    <div class="container-fluid">
+        <!-- Update button-->
+        <div class="row">
+            @foreach (var item in Model)
+            {
+                <div class="col-lg-2 col-4">
+                    <!-- small box -->
+                    <div class="small-box bg-info">
+                        <div class="inner">
+                            <h3>Total: @item.Total</h3>
+
+                            <p>Successfull: <span class="text-white"> @Html.DisplayFor(model => item.Successful)</span></p>
+                            <p>Failed: <span class="text-danger">@Html.DisplayFor(model => item.Failed)</p>
+                        </div>
+                        <div class="icon">
+                            <i class="ion ion-stats-bars"></i>
+                        </div>
+                        <a href="#" class="small-box-footer">
+                            Reporting Date: @item.SendDate
+                            <i class="fas fa-arrow-circle-right"></i>
+                        </a>
+                    </div>
+                </div>
+            }
+            @*<div class="col-lg-2 col-4">
+                    <div class="card-footer clearfix">
+                        @using (Html.BeginForm("LastFiveResponse", "Home", FormMethod.Post))
+                        {
+                           <button type="submit" class="btn btn-primary float-right"><i class="fas fa-plus"></i> Update</button>}
+                    </div>
+                    @if (ViewBag.Message != null)
+                    {
+                        <script type="text/javascript">
+                                    window.onload = function () {
+                                        alert("@ViewBag.Message");
+                                    };
+                        </script>
+                     }
+                </div>*@
+        </div>
+        <!-- /.row -->
+        <div class="row">
+            <div class="col-lg-3 col-6">
+                <!-- small box -->
+                @*<div class="small-box bg-danger">
+                        <div class="inner">
+                            <p>Reset Credentials Countdown</p>
+
+                            <h3>Days: <span class="">@ViewBag.Days</span></h3>
+                            <p>Last-Reset: <span class="text-success">2017-06-15 </span></p>
+                            <p>Next-Reset: <span class="text-danger">2017-06-15 </span></p>
+
+                        </div>
+                        <div class="icon">
+                            <i class="ion ion-pie-graph"></i>
+                        </div>
+                        <a href="#" class="small-box-footer">
+                            @ViewBag.Days Days to next reset
+                            <i class="fas fa-arrow-circle-right"></i>
+                        </a>
+                    </div>*@
+            </div>
+        </div>
+</section>

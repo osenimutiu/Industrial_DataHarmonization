@@ -1,0 +1,29 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="utf-8">
+    <title>Access Denied</title>
+    <link rel="stylesheet" href="~/Content/css/style.css">
+</head>
+<body>
+    <div id="error-page">
+        <div class="content">
+            <h2 class="header" data-text="">
+                <img src="~/Content/img/AccessDenied.png" />
+            </h2>
+            <h4 data-text="Opps! Page not found">
+               Unauthorize User.
+            </h4>
+            <div class="btns">
+                @*<a href="@Url.Action("Index", "ErrorLog")">Error Log</a>*@
+                <a href="@Url.Action("Index", "Home")">Back</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

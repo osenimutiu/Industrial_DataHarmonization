@@ -1,0 +1,53 @@
+﻿@model List<SCBHarmonization.Models.LoadingGuidLine>
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Upload GuidLines</title>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/NewDashboard/assets/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/NewDashboard/assets/css/paper-dashboard.css?v=2.0.1" rel="stylesheet" />
+</head>
+<body>
+  
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            @Html.ActionLink("Convert To PDF", "UploadGuides")
+        </li>
+        <li class="breadcrumb-item active">
+            @Html.ActionLink("Home", "Index", "Home")
+        </li>
+
+    </ol>
+    <table class="table">
+        <thead class="table-dark">
+            <tr>
+                <th>Sr. No.</th>
+                <th>Parameter Name</th>
+                <th>Description</th>
+                <th style="width: 50px;">Comment</th>
+            </tr>
+
+        </thead>
+            @foreach (var item in Model)
+            {
+
+            <tr>
+                <td>@(Model.IndexOf(item) + 1)</td>
+                <td>@item.ParameterName</td>
+                <td>@item.Description</td>
+                <td style="width:250px;">@item.Comment</td>
+
+            </tr>
+            }
+
+        
+    </table>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+</body>
+</html>

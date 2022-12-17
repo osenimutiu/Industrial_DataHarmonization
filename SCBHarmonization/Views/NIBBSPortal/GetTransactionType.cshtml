@@ -1,0 +1,65 @@
+﻿@model SCBHarmonization.ViewModels.GetTransactionType
+
+@{
+    ViewBag.Title = "GetTransactionType";
+}
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script type="text/javascript">
+    $(function () {
+        GetTransaction();
+    });
+    function GetTransaction() {
+        $.ajax({
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            type: 'Get',
+            url: "/NIBBSPortal/GetTransactionTypeB",
+            success: function (data) {
+                $("#trDiv").html('');
+                var tdContent = '';
+                for (var i = 0; i < data.length; i++) {
+                    tdContent += '<tr><td>' + data[i].code + '</td><td>' + data[i].transactionGroupName + '</td>' + '<td>' + data[i].name + '</td>' + '<td></td></tr>'; // if Name is property of your Person object
+                }
+                $("#trDiv").append(tdContent);
+                console.log(data);
+            },
+            error: function () {
+                alert("Error!")
+            }
+        });
+    }
+
+   
+</script>
+
+
+
+<div class="col-xl-12 col-md-12 mb-12">
+    <div class="card border-left-primary shadow h-100 py-2">
+        <div class="card-body">
+            <div class="row no-gutters align-items-center">
+                <div class="col mr-2">
+                    <div class="form-group col-md-6">
+                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Transaction Types</div>
+                    </div>
+
+                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th>Code</th>
+                                <th>transactionGroupName</th>
+                                <th>Name</th>
+                            </tr>
+                        </thead>
+                        <tbody id="trDiv">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
